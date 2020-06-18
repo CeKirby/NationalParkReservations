@@ -16,6 +16,9 @@ namespace Capstone
             IConfigurationRoot configuration = builder.Build();
 
             string connectionString = configuration.GetConnectionString("Project");
+
+            ParksReservationCLI parksReservationCLI = new ParksReservationCLI();
+            parksReservationCLI.RunCLI();
         }
     }
 }
