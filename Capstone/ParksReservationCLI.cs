@@ -45,12 +45,12 @@ namespace Capstone
                     case Command_DisplayParks:
                         Console.Clear();
                         menuSpacer();
-                        parkDAO.GetParks();
+                        //GetParks();
                         break;
                     case Command_SelectPark:
                         Console.Clear();
                         menuSpacer();
-                        parkDAO.GetParks();
+                        //GetParks();
                         menuSpacer();
                         SelectParkMenu();
                         break;
@@ -100,6 +100,7 @@ namespace Capstone
 
         private void SelectParkMenu()
         {
+            menuSpacer();
             Console.WriteLine(" Select Park ID to Display Campgrounds at that Park");
             string parkID = Console.ReadLine();
             //can convert to int if needed?
@@ -123,19 +124,12 @@ namespace Capstone
 
         }
 
-        public void DisplayParks()
-        {
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("Parks to be pulled from database!");
-        }
-
         public int BookCampsite()
         {
             int confirmationNumber = -1;
             int campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
-            DateTime startDate = CLIHelper.GetDateTime("Enter desired start date (YYYY-MM-DD");
-            DateTime endDate = CLIHelper.GetDateTime("Enter desired end date (YYYY-MM-DD");
+            DateTime startDate = CLIHelper.GetDateTime("Enter desired start date (YYYY-MM-DD)");
+            DateTime endDate = CLIHelper.GetDateTime("Enter desired end date (YYYY-MM-DD)");
 
             //display top 5 available on those dates 
             Console.ReadLine();
@@ -152,6 +146,21 @@ namespace Capstone
             };
             
             return confirmationNumber;
+        }
+
+        public void DisplaySitesByCampGroundId()
+        {
+            int campgroundID = CLIHelper.GetInteger("Input the ID of the Campground:");
+
+            IList<Site> sites = siteDAO.GetSitesByCampGroundId(campgroundID);
+
+            Console.WriteLine();
+            Console.WriteLine($"Campsites at Campground {campgroundID}");
+
+            foreach (var sites in northAmericanCountries)
+            {
+                Console.WriteLine(country);
+            }
         }
 
     }

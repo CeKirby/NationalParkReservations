@@ -31,8 +31,8 @@ namespace Capstone.DAL
 
                     while (reader.Read())
                     {
-                        Site campSite = ConvertReaderToSites(reader);
-                        sites.Add(campSite);
+                        //Site campSite = ConvertReaderToSites(reader);
+                        //sites.Add(campSite);
                     }
 
                 }
