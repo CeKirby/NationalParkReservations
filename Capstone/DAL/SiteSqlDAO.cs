@@ -31,8 +31,8 @@ namespace Capstone.DAL
 
                     while (reader.Read())
                     {
-                        Site campSite = ConvertReaderToSites(reader);
-                        sites.Add(campSite);
+                        //Site campSite = ConvertReaderToSites(reader);
+                        //sites.Add(campSite);
                     }
                 }
             }
@@ -43,6 +43,11 @@ namespace Capstone.DAL
                 throw;
             }
             return sites;
+        }
+
+        public IList<Site> GetSitesByCampGroundId(string campGroundId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
