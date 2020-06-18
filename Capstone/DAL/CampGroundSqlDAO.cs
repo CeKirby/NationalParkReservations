@@ -38,8 +38,8 @@ namespace Capstone.DAL
 
                     while (reader.Read())
                     {
-                        CampGround campground = ConvertReaderToCampGround(reader);
-                        campgrounds.Add(campground);
+                        //CampGround campground = ConvertReaderToCampGround(reader);
+                        //campgrounds.Add(campground);
                     }
                 }
             }

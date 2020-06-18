@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Capstone.DAL;
+using Capstone.Models;
+using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Capstone
@@ -9,44 +12,58 @@ namespace Capstone
 
         const string Command_DisplayParks = "1";
         const string Command_SelectPark = "2";
-        const string Command_SelectCampground = "";
-        const string Command_ReturnMainMenu = "r";
+        const string Command_BookCampsite = "b";
+        const string Command_ReturnToMainMenu = "r";
         const string Command_Quit = "q";
 
+        private ICampGroundDAO campGroundDAO;
+        private IParkDAO parkDAO;
+        private ISiteDAO siteDAO;
+        private IReservationDAO reservationDAO;
 
-        public ParksReservationCLI()
+
+        public ParksReservationCLI(IParkDAO parkDAO, ICampGroundDAO campGroundDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO)
         {
-
+            this.reservationDAO = reservationDAO;
+            this.parkDAO = parkDAO;
+            this.siteDAO = siteDAO;
+            this.campGroundDAO = campGroundDAO;
         }
 
         public void RunCLI()
         {
             PrintHeader();
-            PrintMainMenu();
-            while (true)
+            
+            bool repeatMenu = true;
+            while (repeatMenu)
             {
+                
+                PrintMainMenu();
                 string command = Console.ReadLine();
-
-                Console.Clear();
-
                 switch (command.ToLower())
                 {
                     case Command_DisplayParks:
-                        //DisplayParks();
+                        Console.Clear();
+                        menuSpacer();
+                        parkDAO.GetParks();
                         break;
                     case Command_SelectPark:
-                        //DisplayParks();
+                        Console.Clear();
+                        menuSpacer();
+                        parkDAO.GetParks();
+                        menuSpacer();
                         SelectParkMenu();
                         break;
                     case Command_Quit:
+                        Console.Clear();
                         Console.WriteLine("Thank you for using the National Parks Campsite Reservation System!");
-                        return;
-
+                        repeatMenu = false;
+                        break;
                     default:
                         Console.WriteLine("The command provided was not a valid command, please try again.");
                         break;
                 }
-                PrintMainMenu();
+
             }
             
         }
@@ -65,23 +82,77 @@ namespace Capstone
 
 
         }
+        public void menuSpacer()
+        {
+            Console.WriteLine();
+            Console.WriteLine("---~*~---");
+            Console.WriteLine();
+        }
 
         private void PrintMainMenu()
         {
             Console.WriteLine();
-            Console.WriteLine();
             Console.WriteLine("Main-Menu Type in a command");
             Console.WriteLine(" 1 - Get a list of all National Parks");
-            Console.WriteLine(" 2 - Select a Park to find a Campground");
+            Console.WriteLine(" 2 - Select a Campground");
             Console.WriteLine(" Q - Quit");
         }
 
         private void SelectParkMenu()
         {
+            Console.WriteLine(" Select Park ID to Display Campgrounds at that Park");
+            string parkID = Console.ReadLine();
+            //can convert to int if needed?
+            //DisplayCampgrounds(parkID);
             Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine(" Input Park ID to Display Campgrounds at that Park");
-            Console.WriteLine(" R - Return to Main Menu");
+            Console.WriteLine(" B - Would you like to book a campsite?");
+            Console.WriteLine(" R - Or return to the Main Menu?");
+            string command = Console.ReadLine();
+            switch (command.ToLower())
+            {
+                case Command_BookCampsite:
+                    BookCampsite();
+                    break;
+                case Command_ReturnToMainMenu:
+                    RunCLI();
+                    break;
+                default: 
+                    Console.WriteLine("The command provided was not valid, please try again.");
+                    break;
+            }
+
         }
+
+        public void DisplayParks()
+        {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Parks to be pulled from database!");
+        }
+
+        public int BookCampsite()
+        {
+            int confirmationNumber = -1;
+            int campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
+            DateTime startDate = CLIHelper.GetDateTime("Enter desired start date (YYYY-MM-DD");
+            DateTime endDate = CLIHelper.GetDateTime("Enter desired end date (YYYY-MM-DD");
+
+            //display top 5 available on those dates 
+            Console.ReadLine();
+
+
+            Reservations reservation = new Reservations
+            {
+                SiteId = 0,
+                FamilyName = "",
+                StartDate = startDate,
+                EndDate = endDate,
+                CreateDate = DateTime.Now
+
+            };
+            
+            return confirmationNumber;
+        }
+
     }
 }

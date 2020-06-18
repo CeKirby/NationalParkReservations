@@ -6,5 +6,6 @@ namespace Capstone.DAL
 {
     public class SiteSqlDAO
     {
+
     }
 }
