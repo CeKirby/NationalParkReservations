@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Capstone.DAL;
+using Capstone.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Capstone
 {
@@ -13,10 +16,13 @@ namespace Capstone
         const string Command_ReturnMainMenu = "r";
         const string Command_Quit = "q";
 
+        public IParkDAO parkDAO;
+        public ICampGroundDAO campgroundDAO;
 
-        public ParksReservationCLI()
+        public ParksReservationCLI(IParkDAO parkDAO, ICampGroundDAO campgroundDAO)
         {
-
+            this.parkDAO = parkDAO;
+            this.campgroundDAO = campgroundDAO;
         }
 
         public void RunCLI()
@@ -32,7 +38,7 @@ namespace Capstone
                 switch (command.ToLower())
                 {
                     case Command_DisplayParks:
-                        //DisplayParks();
+                        DisplayParks();
                         break;
                     case Command_SelectPark:
                         //DisplayParks();
@@ -82,6 +88,20 @@ namespace Capstone
             Console.WriteLine();
             Console.WriteLine(" Input Park ID to Display Campgrounds at that Park");
             Console.WriteLine(" R - Return to Main Menu");
+        }
+
+        private void DisplayParks()
+        {
+            IList<Parks> parks = parkDAO.GetParks();
+
+            Console.WriteLine();
+            Console.WriteLine("Printing all of the parks");
+
+            for (int index = 0; index < parks.Count; index++)
+            {
+                Console.WriteLine(index + " - " + parks[index]);
+            }
+
         }
     }
 }
