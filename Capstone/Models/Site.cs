@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Capstone.Models
 {
-    public class Campground
+    public class Site
     {
         public int SiteId { get; set; }
         public int CampgroundId { get; set; }
