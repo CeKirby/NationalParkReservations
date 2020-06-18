@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Capstone.Models
+namespace Capstone.DAL
 {
-    public class Reservations
+    public class SiteSqlDAO
     {
     }
 }
