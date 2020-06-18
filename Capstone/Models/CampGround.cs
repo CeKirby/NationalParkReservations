@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Capstone.Models
 {
-    class CampGround
+    public class CampGround
     {
+
     }
 }
