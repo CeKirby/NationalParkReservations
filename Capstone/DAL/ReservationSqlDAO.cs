@@ -29,7 +29,7 @@ namespace Capstone.DAL
                     sqlCommand.Parameters.AddWithValue("@to_date", newReservation.EndDate);
                     sqlCommand.Parameters.AddWithValue("@create_date", newReservation.CreateDate);
 
-                    // print the new city id
+
                     int newReservationId = Convert.ToInt32(sqlCommand.ExecuteScalar());
                     Console.WriteLine("The new reservation number is " + newReservationId);
                 }
@@ -84,8 +84,52 @@ namespace Capstone.DAL
 
             return madeReservations;
         }
+        public IList<Reservations> GetReservationByCampground(int campgroundId)
+        {
+            List<Reservations> reservationsByCampground = new List<Reservations>();
 
-        private int MakeReservation(DateTime startDate, DateTime endDate)
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    // column    // param name  
+                    SqlCommand cmd = new SqlCommand( "select reservation.site_id, reservation.name, from_date, to_date from reservation join site on site.site_id = reservation.site_id join campground on campground.campground_id = site.campground_id where campground.campground_id = @campground_id", conn);
+                   
+                    // param name    // param value
+                    cmd.Parameters.AddWithValue("@campground_id",ParksReservationCLI.campgroundID);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Reservations madeReservations = ConvertReaderToReservationsByCampground(reader);
+                        reservationsByCampground.Add(madeReservations);
+                    }
+
+
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("An error occurred reading reservations by campgrounds.");
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+            return reservationsByCampground;
+        }
+            private Reservations ConvertReaderToReservationsByCampground(SqlDataReader reader)
+            {
+                Reservations madeReservations = new Reservations();  
+                madeReservations.SiteId = Convert.ToInt32(reader["site_id"]);
+                madeReservations.FamilyName = Convert.ToString(reader["name"]);
+                madeReservations.StartDate = Convert.ToDateTime(reader["from_date"]);
+                madeReservations.EndDate = Convert.ToDateTime(reader["to_date"]);
+            
+                return madeReservations;
+            }
+        
+            private int MakeReservation(DateTime startDate, DateTime endDate)
         {
             Console.WriteLine("Would you like to Reserve a campsite? (Y/N)");
             string reserveInput = Console.ReadLine();

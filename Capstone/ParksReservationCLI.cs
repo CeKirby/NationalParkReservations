@@ -128,7 +128,6 @@ namespace Capstone
 
         public int BookCampsite()
         {
-            int confirmationNumber = -1;
             campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
             //Display campground reservation names and dates here? THEN ask for date?
             //IList<Site> sites = siteDAO.GetSitesByCampGroundId(campgroundID);
