@@ -51,8 +51,9 @@ namespace Capstone
                     case Command_SelectPark:
                         Console.Clear();
                         menuSpacer();
-                        //GetParks();
+                        DisplayParkIds();
                         menuSpacer();
+                        DisplayCampgroundsbyParkId();
                         SelectParkMenu();
                         break;
                     case Command_Quit:
@@ -101,11 +102,6 @@ namespace Capstone
 
         private void SelectParkMenu()
         {
-            menuSpacer();
-            Console.WriteLine(" Select Park ID to Display Campgrounds at that Park");
-            string parkID = Console.ReadLine();
-            //can convert to int if needed?
-            //DisplayCampgrounds(parkID);
             Console.WriteLine();
             Console.WriteLine(" B - Would you like to book a campsite?");
             Console.WriteLine(" R - Or return to the Main Menu?");
@@ -167,7 +163,43 @@ namespace Capstone
                 Console.WriteLine($"Annual Visitors: {parks[index].Visitors}");
                 Console.WriteLine();
                 Console.WriteLine($"{parks[index].Description}");
-                Console.WriteLine();
+                menuSpacer();
+
+            }
+
+        }
+
+        private void DisplayParkIds()
+        {
+            IList<Parks> parks = parkDAO.GetParks();
+
+            Console.WriteLine();
+            Console.WriteLine("Park IDs");
+            Console.WriteLine();
+
+
+            for (int index = 0; index < parks.Count; index++)
+            {
+                Console.WriteLine($"{parks[index].ParkName} National Park");
+                Console.WriteLine($"Park ID:     {parks[index].ParkId}");
+                
+            }
+        }
+
+        private void DisplayCampgroundsbyParkId()
+        {
+            int parkID = CLIHelper.GetInteger("Input the ID of the Park to show Campgrunds:");
+
+            IList<CampGround> campGrounds = campGroundDAO.GetCampGroundByParkId(parkID);
+
+            for (int index = 0; index < campGrounds.Count; index++)
+            {
+                Console.WriteLine($"{campGrounds[index].CampgroundName}");
+                Console.WriteLine($"Campground ID:   {campGrounds[index].CampGroundId}");
+                Console.WriteLine($"Open Month:      {campGrounds[index].OpenMonth}");
+                Console.WriteLine($"Closing Month:   {campGrounds[index].ClosingMonth}");
+                Console.WriteLine($"Daily Fee:       {campGrounds[index].DailyFee}");
+                menuSpacer();
 
             }
 
