@@ -23,11 +23,11 @@ namespace Capstone
         private IReservationDAO reservationDAO;
 
 
-        public ParksReservationCLI(IParkDAO parkDAO, ICampGroundDAO campGroundDAO)
+        public ParksReservationCLI(IParkDAO parkDAO, ICampGroundDAO campGroundDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO)
         {
-            //this.reservationDAO = reservationDAO;
+            this.reservationDAO = reservationDAO;
             this.parkDAO = parkDAO;
-            //this.siteDAO = siteDAO;
+            this.siteDAO = siteDAO;
             this.campGroundDAO = campGroundDAO;
         }
 

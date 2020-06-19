@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Capstone.DAL
 {
-    public class SiteSqlDAO 
+    public class SiteSqlDAO : ISiteDAO
     {
         private string connectionString;
         public SiteSqlDAO(string databaseconnectionString)

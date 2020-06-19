@@ -23,10 +23,10 @@ namespace Capstone
 
             ICampGroundDAO campGroundDAO = new CampGroundSqlDAO(connectionString);
             IParkDAO parkDAO = new ParkSqlDAO(connectionString);
-            //ISiteDAO siteDAO = new SiteSqlDAO(connectionString);
-            //IReservationDAO reservationDAO = new ReservationSqlDAO(connectionString);
+            ISiteDAO siteDAO = new SiteSqlDAO(connectionString);
+            IReservationDAO reservationDAO = new ReservationSqlDAO(connectionString);
 
-        ParksReservationCLI parksReservationCLI = new ParksReservationCLI(parkDAO, campGroundDAO);
+        ParksReservationCLI parksReservationCLI = new ParksReservationCLI(parkDAO, campGroundDAO, siteDAO, reservationDAO);
             parksReservationCLI.RunCLI();
         }
     }
