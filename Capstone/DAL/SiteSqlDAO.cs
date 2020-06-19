@@ -53,9 +53,9 @@ namespace Capstone.DAL
         {
             Site campSite = new Site();
             campSite.SiteId = Convert.ToInt32(reader["site_id"]);
-            campSite.CampgroundId = Convert.ToInt32(reader["campground_id_id"]);
+            campSite.CampgroundId = Convert.ToInt32(reader["campground_id"]);
             campSite.SiteNumber = Convert.ToInt32(reader["site_number"]);
-            campSite.SiteOccupency = Convert.ToInt32(reader["max_occupency"]);
+            campSite.SiteOccupency = Convert.ToInt32(reader["max_occupancy"]);
             campSite.Accessible = Convert.ToBoolean(reader["accessible"]);
             campSite.RvLength = Convert.ToInt32(reader["max_rv_length"]);
             campSite.Utilities = Convert.ToBoolean(reader["utilities"]);

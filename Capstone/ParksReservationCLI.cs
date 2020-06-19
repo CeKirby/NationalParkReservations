@@ -51,7 +51,7 @@ namespace Capstone
                     case Command_DisplayParks:
                         Console.Clear();
                         menuSpacer();
-                        GetParks();
+                        DisplayParks();
                         break;
                     case Command_SelectPark:
                         Console.Clear();
@@ -173,7 +173,7 @@ namespace Capstone
             //        };
             //    }
 
-            //    return confirmationNumber;
+                return confirmationNumber;
         }
 
         private void DisplayParks()

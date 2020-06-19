@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Capstone.Models;
+using Capstone.DAL;
 using System;
 using System.Collections.Generic;
 using System.Text;
