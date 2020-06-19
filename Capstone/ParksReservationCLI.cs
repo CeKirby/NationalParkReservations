@@ -128,7 +128,6 @@ namespace Capstone
 
         public int BookCampsite()
         {
-            int confirmationNumber = -1;
             campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
             //Display campground reservation names and dates here? THEN ask for date?
             IList<Reservations> reservations = reservationDAO.GetReservationByCampground(campgroundID);
@@ -158,28 +157,8 @@ namespace Capstone
 
             //    //display top 5 available on those dates 
             //    Console.ReadLine();
+            return 0;
 
-            //    Console.WriteLine("Would you like to Reserve a campsite? (Y/N)");
-            //    string reserveInput = Console.ReadLine();
-
-            //    if (reserveInput.ToLower() == "y")
-            //    {
-            //        int siteID = CLIHelper.GetInteger("Please enter the desired site(ID):");
-            //        string familyName = CLIHelper.GetString("Enter Family Name:");
-
-
-            //        Reservations reservation = new Reservations
-            //        {
-            //            SiteId = siteID,
-            //            FamilyName = "",
-            //            StartDate = startDate,
-            //            EndDate = endDate,
-            //            CreateDate = DateTime.Now
-
-            //        };
-            //    }
-
-                return confirmationNumber;
         }
 
         private void DisplayParks()

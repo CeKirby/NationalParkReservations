@@ -10,6 +10,10 @@ namespace Capstone.Tests
     [TestClass]
     public class ReservationDAOTests
     {
+        [TestMethod]
+        public void MakeReservationTest()
+        {
 
+        }
     }
 }

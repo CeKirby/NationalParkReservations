@@ -133,6 +133,7 @@ namespace Capstone.DAL
             catch (System.NullReferenceException e)
             {
                 betweenOpenMonths = false;
+                Console.WriteLine(e.Message);
             }
             return betweenOpenMonths;
 
