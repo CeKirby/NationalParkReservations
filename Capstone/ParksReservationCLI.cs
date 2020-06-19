@@ -100,8 +100,10 @@ namespace Capstone
             Console.WriteLine(" Q - Quit");
         }
 
-        private void SelectParkMenu()
+        private bool SelectParkMenu()
         {
+            bool success = false;
+
             Console.WriteLine();
             Console.WriteLine(" B - Would you like to book a campsite?");
             Console.WriteLine(" R - Or return to the Main Menu?");
@@ -109,15 +111,18 @@ namespace Capstone
             switch (command.ToLower())
             {
                 case Command_BookCampsite:
+                    success = true;
                     BookCampsite();
                     break;
                 case Command_ReturnToMainMenu:
+                    success = true;
                     RunCLI();
                     break;
                 default: 
                     Console.WriteLine("The command provided was not valid, please try again.");
                     break;
             }
+            return success;
 
         }
 
@@ -154,79 +159,117 @@ namespace Capstone
             return confirmationNumber;
         }
 
-        private void GetParks()
+        private bool GetParks()
         {
-            IList<Parks> parks = parkDAO.GetParks();
-
-            Console.WriteLine();
-            Console.WriteLine("Park Information Screen");
-            Console.WriteLine();
-
-
-            for (int index = 0; index < parks.Count; index++)
+            bool success = false;
+            try
             {
-                Console.WriteLine($"{parks[index].ParkName} National Park");
-                Console.WriteLine($"Location:        {parks[index].Location}");
-                Console.WriteLine($"Established:     {parks[index].EstablishedDate.ToString("yyyy/MM/dd")}");
-                Console.WriteLine($"Area:            {parks[index].Area} sq km");
-                Console.WriteLine($"Annual Visitors: {parks[index].Visitors}");
+                IList<Parks> parks = parkDAO.GetParks();
+
                 Console.WriteLine();
-                Console.WriteLine($"{parks[index].Description}");
-                menuSpacer();
+                Console.WriteLine("Park Information Screen");
+                Console.WriteLine();
+
+
+                for (int index = 0; index < parks.Count; index++)
+                {
+                    Console.WriteLine($"{parks[index].ParkName} National Park");
+                    Console.WriteLine($"Location:        {parks[index].Location}");
+                    Console.WriteLine($"Established:     {parks[index].EstablishedDate.ToString("yyyy/MM/dd")}");
+                    Console.WriteLine($"Area:            {parks[index].Area} sq km");
+                    Console.WriteLine($"Annual Visitors: {parks[index].Visitors}");
+                    Console.WriteLine();
+                    Console.WriteLine($"{parks[index].Description}");
+                    menuSpacer();
+
+                }
+                success = true;
+            } catch (Exception e)
+            {
 
             }
+            return success;
 
         }
 
-        private void DisplayParkIds()
+        private bool DisplayParkIds()
         {
-            IList<Parks> parks = parkDAO.GetParks();
-
-            Console.WriteLine();
-            Console.WriteLine("Park IDs");
-            Console.WriteLine();
-
-
-            for (int index = 0; index < parks.Count; index++)
+            bool success = false;
+            try
             {
-                Console.WriteLine($"{parks[index].ParkName} National Park");
-                Console.WriteLine($"Park ID:     {parks[index].ParkId}");
-                
+                IList<Parks> parks = parkDAO.GetParks();
+
+                Console.WriteLine();
+                Console.WriteLine("Park IDs");
+                Console.WriteLine();
+
+
+                for (int index = 0; index < parks.Count; index++)
+                {
+                    Console.WriteLine($"{parks[index].ParkName} National Park");
+                    Console.WriteLine($"Park ID:     {parks[index].ParkId}");
+
+                }
+                success = true;
+            } catch (Exception e)
+            {
+
             }
+
+            return success;
         }
 
-        private void DisplayCampgroundsbyParkId()
+        private bool DisplayCampgroundsbyParkId()
         {
-            int parkID = CLIHelper.GetInteger("Input the ID of the Park to show Campgrounds:");
-
-            IList<CampGround> campGrounds = campGroundDAO.GetCampGroundByParkId(parkID);
-
-            for (int index = 0; index < campGrounds.Count; index++)
+            bool success = false;
+            try
             {
-                Console.WriteLine($"{campGrounds[index].CampgroundName}");
-                Console.WriteLine($"Campground ID:   {campGrounds[index].CampGroundId}");
-                Console.WriteLine($"Open Month:      {campGrounds[index].OpenMonth}");
-                Console.WriteLine($"Closing Month:   {campGrounds[index].ClosingMonth}");
-                Console.WriteLine($"Daily Fee:       {campGrounds[index].DailyFee}");
-                menuSpacer();
+                int parkID = CLIHelper.GetInteger("Input the ID of the Park to show Campgrunds:");
+
+                IList<CampGround> campGrounds = campGroundDAO.GetCampGroundByParkId(parkID);
+
+                for (int index = 0; index < campGrounds.Count; index++)
+                {
+                    Console.WriteLine($"{campGrounds[index].CampgroundName}");
+                    Console.WriteLine($"Campground ID:   {campGrounds[index].CampGroundId}");
+                    Console.WriteLine($"Open Month:      {campGrounds[index].OpenMonth}");
+                    Console.WriteLine($"Closing Month:   {campGrounds[index].ClosingMonth}");
+                    Console.WriteLine($"Daily Fee:       {campGrounds[index].DailyFee}");
+                    menuSpacer();
+
+                }
+                success = true;
+            } catch (Exception e)
+            {
 
             }
+
+            return success;
 
         }
 
-        private void DisplaySitesByCampGroundId()
+        private bool DisplaySitesByCampGroundId()
         {
-            int campgroundID = CLIHelper.GetInteger("Input the ID of the Campground:");
-
-            IList<Site> sites = siteDAO.GetSitesByCampGroundId(campgroundID);
-
-            Console.WriteLine();
-            Console.WriteLine($"Campsites at Campground {campgroundID}");
-
-            for (int index = 0; index < sites.Count; index++)
+            bool success = false;
+            try
             {
-                Console.WriteLine(index + " - " + sites[index]);
+                int campgroundID = CLIHelper.GetInteger("Input the ID of the Campground:");
+
+                IList<Site> sites = siteDAO.GetSitesByCampGroundId(campgroundID);
+
+                Console.WriteLine();
+                Console.WriteLine($"Campsites at Campground {campgroundID}");
+
+                for (int index = 0; index < sites.Count; index++)
+                {
+                    Console.WriteLine(index + " - " + sites[index]);
+                }
+                success = true;
+            } catch (Exception e)
+            {
+
             }
+            return success;
         }
     }
 }
