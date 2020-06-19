@@ -126,39 +126,42 @@ namespace Capstone
 
         }
 
-        public int BookCampsite()
-        {
-            int confirmationNumber = -1;
-            int campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
-            DateTime startDate = CLIHelper.GetDateTime("Enter desired start date (YYYY-MM-DD)");
-            DateTime endDate = CLIHelper.GetDateTime("Enter desired end date (YYYY-MM-DD)");
-
-
-            //display top 5 available on those dates 
-            Console.ReadLine();
-
-            Console.WriteLine("Would you like to Reserve a campsite? (Y/N)");
-            string reserveInput = Console.ReadLine();
-
-            if (reserveInput.ToLower() == "y")
-            {
-                int siteID = CLIHelper.GetInteger("Please enter the desired site(ID):");
-                string familyName = CLIHelper.GetString("Enter Family Name:");
-
-
-                Reservations reservation = new Reservations
-                {
-                    SiteId = siteID,
-                    FamilyName = "",
-                    StartDate = startDate,
-                    EndDate = endDate,
-                    CreateDate = DateTime.Now
-
-                };
-            }
+        //public int BookCampsite()
+        //{
+        //    int confirmationNumber = -1;
+        //    int campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
+        //    DateTime startDate = CLIHelper.GetDateTime("Enter desired start date (YYYY-MM-DD)");
+        //    DateTime endDate = CLIHelper.GetDateTime("Enter desired end date (YYYY-MM-DD)");
+        //    string startDay = startDate.ToString();
+        //    string[] startArray = startDay.Split('-');
+        //    int month = int.Parse(startArray[1]);
             
-            return confirmationNumber;
-        }
+
+        //    //display top 5 available on those dates 
+        //    Console.ReadLine();
+
+        //    Console.WriteLine("Would you like to Reserve a campsite? (Y/N)");
+        //    string reserveInput = Console.ReadLine();
+
+        //    if (reserveInput.ToLower() == "y")
+        //    {
+        //        int siteID = CLIHelper.GetInteger("Please enter the desired site(ID):");
+        //        string familyName = CLIHelper.GetString("Enter Family Name:");
+
+
+        //        Reservations reservation = new Reservations
+        //        {
+        //            SiteId = siteID,
+        //            FamilyName = "",
+        //            StartDate = startDate,
+        //            EndDate = endDate,
+        //            CreateDate = DateTime.Now
+
+        //        };
+        //    }
+            
+        //    return confirmationNumber;
+        //}
 
         private bool GetParks()
         {

@@ -51,7 +51,7 @@ namespace Capstone.Tests
                 try
                 {
                     //make sure there are campsites at test campground
-                    string campgroundInsert = $"insert into campground VALUES ({testParkId}, 'Pic-a-nic Park', 5, 11, 35.00); select scope_identity();";
+                    string campgroundInsert = $"insert into site VALUES ({testCampgroundId}, ); select scope_identity();";
                     SqlCommand cmd = new SqlCommand(campgroundInsert, connection);
                     testCampgroundId = Convert.ToInt32(cmd.ExecuteScalar());
 
