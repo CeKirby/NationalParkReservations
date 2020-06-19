@@ -179,7 +179,7 @@ namespace Capstone
         //    }
             
         //    return confirmationNumber;
-        //}
+        }
 
         private bool GetParks()
         {
@@ -208,7 +208,7 @@ namespace Capstone
                 success = true;
             } catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
             return success;
 
@@ -235,7 +235,7 @@ namespace Capstone
                 success = true;
             } catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
 
             return success;
@@ -263,7 +263,7 @@ namespace Capstone
                 success = true;
             } catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
 
             return success;
@@ -289,7 +289,7 @@ namespace Capstone
                 success = true;
             } catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
             return success;
         }
