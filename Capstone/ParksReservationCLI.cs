@@ -172,5 +172,20 @@ namespace Capstone
             }
 
         }
+
+        private void DisplaySitesByCampGroundId()
+        {
+            int campgroundID = CLIHelper.GetInteger("Input the ID of the Campground:");
+
+            IList<Site> sites = siteDAO.GetSitesByCampGroundId(campgroundID);
+
+            Console.WriteLine();
+            Console.WriteLine($"Campsites at Campground {campgroundID}");
+
+            for (int index = 0; index < sites.Count; index++)
+            {
+                Console.WriteLine(index + " - " + sites[index]);
+            }
+        }
     }
 }
