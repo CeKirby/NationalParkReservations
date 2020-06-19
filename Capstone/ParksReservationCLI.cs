@@ -17,9 +17,6 @@ namespace Capstone
         const string Command_ReturnToMainMenu = "r";
         const string Command_Quit = "q";
 
-        public static DateTime startDate;
-        public static DateTime endDate;
-
         private ICampGroundDAO campGroundDAO;
         private IParkDAO parkDAO;
         private ISiteDAO siteDAO;
@@ -133,11 +130,11 @@ namespace Capstone
         {
             int confirmationNumber = -1;
             int campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
-            startDate = CLIHelper.GetDateTime("Enter desired start date (YYYY-MM-DD)");
-            endDate = CLIHelper.GetDateTime("Enter desired end date (YYYY-MM-DD)");
+            DateTime startDate = CLIHelper.GetDateTime("Enter desired start date (YYYY-MM-DD)");
+            DateTime endDate = CLIHelper.GetDateTime("Enter desired end date (YYYY-MM-DD)");
+
 
             //display top 5 available on those dates 
-
             Console.ReadLine();
 
             Console.WriteLine("Would you like to Reserve a campsite? (Y/N)");
