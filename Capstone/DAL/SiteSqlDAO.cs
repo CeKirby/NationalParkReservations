@@ -13,6 +13,7 @@ namespace Capstone.DAL
         {
             connectionString = databaseconnectionString;
         }
+
         public IList<Site> GetSitesByCampGroundId(int campGroundId)
         {
             List<Site> sites = new List<Site>();
@@ -31,8 +32,8 @@ namespace Capstone.DAL
 
                     while (reader.Read())
                     {
-                        //Site campSite = ConvertReaderToSites(reader);
-                        //sites.Add(campSite);
+                        Site campSite = ConvertReaderToSites(reader);
+                        sites.Add(campSite);
                     }
 
                 }
