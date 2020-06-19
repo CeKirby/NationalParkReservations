@@ -110,10 +110,9 @@ namespace Capstone.DAL
                     cmd.Parameters.AddWithValue("@month", month);
                     cmd.Parameters.AddWithValue("@campground_id", ParksReservationCLI.campgroundID);
 
-                    Nullable<int> certainty = new Nullable<int>();
-                    certainty = (int)cmd.ExecuteScalar();
+                    var certainty = cmd.ExecuteScalar();
 
-                    if (certainty.HasValue)
+                    if (certainty != null)
                     {
                         betweenOpenMonths = true;
                     }
@@ -122,13 +121,18 @@ namespace Capstone.DAL
                         betweenOpenMonths = false;
                     }
 
+
                 }
             }
             catch (SqlException ex)
             {
-                Console.WriteLine("An error occurred reading campsites by park.");
+                Console.WriteLine("An error occurred determining if date is during Open Season.");
                 Console.WriteLine(ex.Message);
                 throw;
+            }
+            catch (System.NullReferenceException e)
+            {
+                betweenOpenMonths = false;
             }
             return betweenOpenMonths;
 
