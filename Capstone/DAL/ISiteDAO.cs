@@ -12,7 +12,7 @@ namespace Capstone.DAL
         /// </summary>
         /// <param name="campGroundId">The campgroundid to search for.</param>
         /// <returns></returns>
-        IList<Site> GetSitesByCampGroundId(string campGroundId);
+        IList<Site> GetSitesByCampGroundId(int campGroundId);
 
     }
 }

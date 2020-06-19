@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Linq;
 
 namespace Capstone
 {
@@ -22,11 +23,11 @@ namespace Capstone
         private IReservationDAO reservationDAO;
 
 
-        public ParksReservationCLI(IParkDAO parkDAO, ICampGroundDAO campGroundDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO)
+        public ParksReservationCLI(IParkDAO parkDAO, ICampGroundDAO campGroundDAO)
         {
-            this.reservationDAO = reservationDAO;
+            //this.reservationDAO = reservationDAO;
             this.parkDAO = parkDAO;
-            this.siteDAO = siteDAO;
+            //this.siteDAO = siteDAO;
             this.campGroundDAO = campGroundDAO;
         }
 
@@ -45,7 +46,7 @@ namespace Capstone
                     case Command_DisplayParks:
                         Console.Clear();
                         menuSpacer();
-                        //GetParks();
+                        GetParks();
                         break;
                     case Command_SelectPark:
                         Console.Clear();
@@ -148,20 +149,28 @@ namespace Capstone
             return confirmationNumber;
         }
 
-        public void DisplaySitesByCampGroundId()
+        private void GetParks()
         {
-            int campgroundID = CLIHelper.GetInteger("Input the ID of the Campground:");
-
-            IList<Site> sites = siteDAO.GetSitesByCampGroundId(campgroundID);
+            IList<Parks> parks = parkDAO.GetParks();
 
             Console.WriteLine();
-            Console.WriteLine($"Campsites at Campground {campgroundID}");
+            Console.WriteLine("Park Information Screen");
+            Console.WriteLine();
 
-            for (int index = 0; index < sites.Count; index++)
+
+            for (int index = 0; index < parks.Count; index++)
             {
-                Console.WriteLine(index + " - " + sites[index]);
-            }
-        }
+                Console.WriteLine($"{parks[index].ParkName} National Park");
+                Console.WriteLine($"Location:        {parks[index].Location}");
+                Console.WriteLine($"Established:     {parks[index].EstablishedDate.ToString("yyyy/MM/dd")}");
+                Console.WriteLine($"Area:            {parks[index].Area} sq km");
+                Console.WriteLine($"Annual Visitors: {parks[index].Visitors}");
+                Console.WriteLine();
+                Console.WriteLine($"{parks[index].Description}");
+                Console.WriteLine();
 
+            }
+
+        }
     }
 }

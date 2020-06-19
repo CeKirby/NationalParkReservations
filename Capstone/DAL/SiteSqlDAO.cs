@@ -6,14 +6,14 @@ using System.Text;
 
 namespace Capstone.DAL
 {
-    public class SiteSqlDAO : ISiteDAO
+    public class SiteSqlDAO 
     {
         private string connectionString;
         public SiteSqlDAO(string databaseconnectionString)
         {
             connectionString = databaseconnectionString;
         }
-        public IList<Site> GetSiteByCampGroundId(int campGroundId)
+        public IList<Site> GetSitesByCampGroundId(int campGroundId)
         {
             List<Site> sites = new List<Site>();
 
@@ -34,6 +34,7 @@ namespace Capstone.DAL
                         //Site campSite = ConvertReaderToSites(reader);
                         //sites.Add(campSite);
                     }
+
                 }
             }
             catch (SqlException ex)
@@ -45,9 +46,22 @@ namespace Capstone.DAL
             return sites;
         }
 
-        public IList<Site> GetSitesByCampGroundId(string campGroundId)
+
+
+        private Site ConvertReaderToSites(SqlDataReader reader)
         {
-            throw new NotImplementedException();
+            Site campSite = new Site();
+            campSite.SiteId = Convert.ToInt32(reader["site_id"]);
+            campSite.CampgroundId = Convert.ToInt32(reader["campground_id_id"]);
+            campSite.SiteNumber = Convert.ToInt32(reader["site_number"]);
+            campSite.SiteOccupency = Convert.ToInt32(reader["max_occupency"]);
+            campSite.Accessible = Convert.ToBoolean(reader["accessible"]);
+            campSite.RvLength = Convert.ToInt32(reader["max_rv_length"]);
+            campSite.Utilities = Convert.ToBoolean(reader["utilities"]);
+            return campSite;
         }
     }
+
+
 }
+

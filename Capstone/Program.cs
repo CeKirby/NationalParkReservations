@@ -2,6 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Capstone
 {
@@ -20,10 +23,10 @@ namespace Capstone
 
             ICampGroundDAO campGroundDAO = new CampGroundSqlDAO(connectionString);
             IParkDAO parkDAO = new ParkSqlDAO(connectionString);
-            ISiteDAO siteDAO = new SiteSqlDAO(connectionString);
-            IReservationDAO reservationDAO = new ReservationSqlDAO(connectionString);
+            //ISiteDAO siteDAO = new SiteSqlDAO(connectionString);
+            //IReservationDAO reservationDAO = new ReservationSqlDAO(connectionString);
 
-        ParksReservationCLI parksReservationCLI = new ParksReservationCLI(parkDAO, campGroundDAO,siteDAO, reservationDAO);
+        ParksReservationCLI parksReservationCLI = new ParksReservationCLI(parkDAO, campGroundDAO);
             parksReservationCLI.RunCLI();
         }
     }
