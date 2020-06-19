@@ -14,6 +14,7 @@ namespace Capstone.DAL
         IList<Parks> GetParks();
 
         /// <summary>
+        /// 
         /// Gets all parks by location
         /// </summary>
         /// <param name="location"></param>

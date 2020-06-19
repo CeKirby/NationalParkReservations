@@ -44,8 +44,8 @@ namespace Capstone.DAL
 
                         park.ParkId = Convert.ToInt32(reader["park_id"]);
                         park.ParkName = Convert.ToString(reader["name"]);
-                        park.ParkLocation = Convert.ToString(reader["location"]);
-                        park.EstablishDate = Convert.ToDateTime(reader["establish_date"]);
+                        park.Location = Convert.ToString(reader["location"]);
+                        park.EstablishedDate = Convert.ToDateTime(reader["establish_date"]);
                         park.Area = Convert.ToInt32(reader["area"]);
                         park.Visitors = Convert.ToInt32(reader["visitors"]);
                         park.Description = Convert.ToString(reader["description"]);
@@ -56,7 +56,7 @@ namespace Capstone.DAL
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
             return parks;
         }

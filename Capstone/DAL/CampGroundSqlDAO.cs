@@ -52,19 +52,19 @@ namespace Capstone.DAL
             return campgrounds;
         }
 
-        /*private CampGround ConvertReaderToCampGround(SqlDataReader reader)
+        private CampGround ConvertReaderToCampGround(SqlDataReader reader)
         {
-             when we get the variables in
+
             CampGround campground = new CampGround();
-            campground.Id = Convert.ToInt32(reader["campground_id"]);
+            campground.CampGroundId = Convert.ToInt32(reader["campground_id"]);
             campground.ParkId = Convert.ToInt32(reader["park_id"]);
-            campground.name = Convert.ToString(reader["name"]);
-            campground.OpenFrom = Convert.ToDateTime(reader["open_from_mm"]);
-            campground.OpenTil = Convert.ToDateTime(reader["open_to_mm"]);
-            campground.Fee = Convert.ToInt32(reader["daily_fee"]);
+            campground.CampgroundName = Convert.ToString(reader["name"]);
+            campground.OpenMonth = Convert.ToInt32(reader["open_from_mm"]);
+            campground.ClosingMonth = Convert.ToInt32(reader["open_to_mm"]);
+            campground.DailyFee = Convert.ToInt32(reader["daily_fee"]);
 
             return campground;
-        }*/
+        }
     }
 
 }
