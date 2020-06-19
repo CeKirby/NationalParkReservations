@@ -9,6 +9,6 @@ namespace Capstone.DAL
     {
         IList<Reservations> GetReservationBySites(int siteId);
 
-        void AddReservation(Reservations newReservations);
+        int AddReservation(Reservations newReservations);
     }
 }
