@@ -85,6 +85,37 @@ namespace Capstone.DAL
             return madeReservations;
         }
 
+        private int MakeReservation(DateTime startDate, DateTime endDate)
+        {
+            Console.WriteLine("Would you like to Reserve a campsite? (Y/N)");
+            string reserveInput = Console.ReadLine();
+            int confirmationNumber = 0;
+
+            if (reserveInput.ToLower() == "y")
+            {
+                int siteID = CLIHelper.GetInteger("Please enter the desired site(ID):");
+                string familyName = CLIHelper.GetString("Enter Group/Family Name:");
+
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+                        string reservationInsert = $"insert into reservation VALUES ('{DateTime.Now}'); select scope_identity();";
+                        SqlCommand cmd = new SqlCommand(reservationInsert, connection);
+                        confirmationNumber = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("An error occurred creating new reservation.");
+                    Console.WriteLine(e.Message);
+                }
+            }
+
+            return confirmationNumber;
+        }
     }
 }
 
