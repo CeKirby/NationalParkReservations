@@ -84,7 +84,7 @@ namespace Capstone.DAL
 
             return madeReservations;
         }
-        public IList<Reservations> GetReservationByCampground(int campgroundId)
+        public IList<Reservations> GetReservationByCampground(int campgroundID)
         {
             List<Reservations> reservationsByCampground = new List<Reservations>();
 

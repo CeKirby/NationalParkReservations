@@ -10,5 +10,7 @@ namespace Capstone.DAL
         IList<Reservations> GetReservationBySites(int siteId);
 
         void AddReservation(Reservations newReservations);
+
+        IList<Reservations> GetReservationByCampground(int campgroundID);
     }
 }

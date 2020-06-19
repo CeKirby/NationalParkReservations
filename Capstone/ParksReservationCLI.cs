@@ -131,7 +131,7 @@ namespace Capstone
             int confirmationNumber = -1;
             campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
             //Display campground reservation names and dates here? THEN ask for date?
-            //IList<Site> sites = siteDAO.GetSitesByCampGroundId(campgroundID);
+            IList<Reservations> reservations = reservationDAO.GetReservationByCampground(campgroundID);
             startDate = CLIHelper.GetDateTime("Enter desired start date (YYYY-MM-DD)");
             endDate = CLIHelper.GetDateTime("Enter desired end date (YYYY-MM-DD)");
             int startMonth = campGroundDAO.CampGroundMonthToReserve();
