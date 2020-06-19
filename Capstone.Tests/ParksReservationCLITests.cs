@@ -6,8 +6,14 @@ using System.Text;
 namespace Capstone.Tests
 {
     [TestClass]
-    public class ParksReservationCLITests
+    public class ParksReservationCLITests : ParkReservationTestInitialize
     {
+        [TestMethod]
+        public void GetParksTest()
+        {
+            ParksReservationCLI parksReservation = new ParksReservationCLI();
+
+        }
 
     }
 }

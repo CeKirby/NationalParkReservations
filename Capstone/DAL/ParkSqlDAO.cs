@@ -56,9 +56,12 @@ namespace Capstone.DAL
             }
             catch (Exception e)
             {
+                Console.WriteLine("An error occurred retrieving list of parks.");
                 Console.WriteLine(e.Message);
             }
             return parks;
         }
+
+        
     }
 }
