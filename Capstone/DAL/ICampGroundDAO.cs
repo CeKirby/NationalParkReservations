@@ -17,6 +17,10 @@ namespace Capstone.DAL
         /// <returns></returns>
         IList<CampGround> GetCampGroundByParkId(int ParkId);
 
+        int CampGroundMonthToReserve();
+
+        bool BetweenOpenMonths();
+
 
     }
 }

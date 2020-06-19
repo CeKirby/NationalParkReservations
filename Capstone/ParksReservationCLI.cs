@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Linq;
+using System.Net;
 
 namespace Capstone
 {
@@ -16,6 +17,10 @@ namespace Capstone
         const string Command_BookCampsite = "b";
         const string Command_ReturnToMainMenu = "r";
         const string Command_Quit = "q";
+
+        public static DateTime startDate;
+        public static DateTime endDate;
+        public static int campgroundID;
 
         private ICampGroundDAO campGroundDAO;
         private IParkDAO parkDAO;
@@ -126,16 +131,29 @@ namespace Capstone
 
         }
 
-        //public int BookCampsite()
-        //{
-        //    int confirmationNumber = -1;
-        //    int campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
-        //    DateTime startDate = CLIHelper.GetDateTime("Enter desired start date (YYYY-MM-DD)");
-        //    DateTime endDate = CLIHelper.GetDateTime("Enter desired end date (YYYY-MM-DD)");
-        //    string startDay = startDate.ToString();
-        //    string[] startArray = startDay.Split('-');
-        //    int month = int.Parse(startArray[1]);
-            
+        public int BookCampsite()
+        {
+            int confirmationNumber = -1;
+            campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
+            startDate = CLIHelper.GetDateTime("Enter desired start date (YYYY-MM-DD)");
+            endDate = CLIHelper.GetDateTime("Enter desired end date (YYYY-MM-DD)");
+            int startMonth = campGroundDAO.CampGroundMonthToReserve();
+            bool betweenOpenMonths = campGroundDAO.BetweenOpenMonths();
+
+            //if (betweenOpenMonths == true)
+            //{
+
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Park is closed at date of reservation");
+            //}
+            Console.WriteLine(betweenOpenMonths);
+            //display top 5 available on those dates
+            //pulls correct value out of datetime to compare campgroundId open month next step
+
+
+            //Console.WriteLine($"{CampGroundSqlDAO.month}");
 
         //    //display top 5 available on those dates 
         //    Console.ReadLine();

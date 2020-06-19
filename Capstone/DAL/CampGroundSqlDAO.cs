@@ -14,6 +14,7 @@ namespace Capstone.DAL
     {
         public static int month;
         private string connectionString;
+        public static bool betweenOpenMonths;
 
         //Single parameter constructor
         public CampGroundSqlDAO(string databaseconnectionString)
@@ -76,17 +77,13 @@ namespace Capstone.DAL
                 {
                     conn.Open();
                     // column    // param name  
-                    SqlCommand cmd = new SqlCommand("SELECT MONTH(@startDate);", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT MONTH(@startDate) as MonthInt;", conn);
                     // param name    // param value
                     cmd.Parameters.AddWithValue("@startDate", ParksReservationCLI.startDate);
 
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    month = (int)cmd.ExecuteScalar();
 
-                    while (reader.Read())
-                    {
-                        //CampGround campground = ConvertReaderToCampGround(reader);
-                        month = GetInt32(reader);
-                    }
+
                 }
             }
             catch (SqlException ex)
@@ -99,6 +96,7 @@ namespace Capstone.DAL
             return month;
         }
 
+<<<<<<< HEAD
 
         public int BookCampsite()
         {
@@ -133,6 +131,42 @@ namespace Capstone.DAL
             }
 
             return confirmationNumber;
+=======
+        public bool BetweenOpenMonths()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    // column    // param name  
+                    SqlCommand cmd = new SqlCommand("SELECT open_from_mm, open_to_mm from campground where @month between open_from_mm and open_to_mm and campground_id = @campground_id", conn);
+                    // param name    // param value
+                    cmd.Parameters.AddWithValue("@month", month);
+                    cmd.Parameters.AddWithValue("@campground_id", ParksReservationCLI.campgroundID);
+
+                    Nullable<int> certainty = new Nullable<int>();
+                    certainty = (int)cmd.ExecuteScalar();
+
+                    if (certainty.HasValue)
+                    {
+                        betweenOpenMonths = true;
+                    }
+                    else
+                    {
+                        betweenOpenMonths = false;
+                    }
+
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("An error occurred reading campsites by park.");
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+            return betweenOpenMonths;
+>>>>>>> 35dc0f7b6de866f0751c691066ef9df618d26062
         }
 
     }
