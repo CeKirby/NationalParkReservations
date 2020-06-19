@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Linq;
+using System.Net;
 
 namespace Capstone
 {
@@ -19,6 +20,7 @@ namespace Capstone
 
         public static DateTime startDate;
         public static DateTime endDate;
+        public static int campgroundID;
 
         private ICampGroundDAO campGroundDAO;
         private IParkDAO parkDAO;
@@ -132,11 +134,26 @@ namespace Capstone
         public int BookCampsite()
         {
             int confirmationNumber = -1;
-            int campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
+            campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
             startDate = CLIHelper.GetDateTime("Enter desired start date (YYYY-MM-DD)");
             endDate = CLIHelper.GetDateTime("Enter desired end date (YYYY-MM-DD)");
+            int startMonth = campGroundDAO.CampGroundMonthToReserve();
+            bool betweenOpenMonths = campGroundDAO.BetweenOpenMonths();
 
-            //display top 5 available on those dates 
+            //if (betweenOpenMonths == true)
+            //{
+
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Park is closed at date of reservation");
+            //}
+            Console.WriteLine(betweenOpenMonths);
+            //display top 5 available on those dates
+            //pulls correct value out of datetime to compare campgroundId open month next step
+
+
+            //Console.WriteLine($"{CampGroundSqlDAO.month}");
 
             Console.ReadLine();
 
