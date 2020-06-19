@@ -135,20 +135,26 @@ namespace Capstone
         {
             int confirmationNumber = -1;
             campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
+            //Display campground reservation names and dates here? THEN ask for date?
+            //IList<Site> sites = siteDAO.GetSitesByCampGroundId(campgroundID);
             startDate = CLIHelper.GetDateTime("Enter desired start date (YYYY-MM-DD)");
             endDate = CLIHelper.GetDateTime("Enter desired end date (YYYY-MM-DD)");
             int startMonth = campGroundDAO.CampGroundMonthToReserve();
             bool betweenOpenMonths = campGroundDAO.BetweenOpenMonths();
 
-            //if (betweenOpenMonths == true)
-            //{
 
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Park is closed at date of reservation");
-            //}
-            Console.WriteLine(betweenOpenMonths);
+            if (betweenOpenMonths == true)
+            {
+
+            }
+            else
+            {
+                Console.WriteLine("Park is closed at date of reservation");
+                Console.WriteLine("Press any key to return to main menu");
+                Console.ReadLine();
+                RunCLI();
+            }
+            //Console.WriteLine(betweenOpenMonths);
             //display top 5 available on those dates
             //pulls correct value out of datetime to compare campgroundId open month next step
 
