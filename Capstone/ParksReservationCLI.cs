@@ -131,16 +131,25 @@ namespace Capstone
             //display top 5 available on those dates 
             Console.ReadLine();
 
+            Console.WriteLine("Would you like to Reserve a campsite? (Y/N)");
+            string reserveInput = Console.ReadLine();
 
-            Reservations reservation = new Reservations
+            if (reserveInput.ToLower() == "y")
             {
-                SiteId = 0,
-                FamilyName = "",
-                StartDate = startDate,
-                EndDate = endDate,
-                CreateDate = DateTime.Now
+                int siteID = CLIHelper.GetInteger("Please enter the desired site(ID):");
+                string familyName = CLIHelper.GetString("Enter Family Name:");
 
-            };
+
+                Reservations reservation = new Reservations
+                {
+                    SiteId = siteID,
+                    FamilyName = "",
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    CreateDate = DateTime.Now
+
+                };
+            }
             
             return confirmationNumber;
         }
