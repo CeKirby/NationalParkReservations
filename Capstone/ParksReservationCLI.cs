@@ -197,7 +197,7 @@ namespace Capstone
 
         private void DisplayCampgroundsbyParkId()
         {
-            int parkID = CLIHelper.GetInteger("Input the ID of the Park to show Campgrunds:");
+            int parkID = CLIHelper.GetInteger("Input the ID of the Park to show Campgrounds:");
 
             IList<CampGround> campGrounds = campGroundDAO.GetCampGroundByParkId(parkID);
 
