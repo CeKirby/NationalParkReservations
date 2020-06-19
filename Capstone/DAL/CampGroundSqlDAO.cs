@@ -12,6 +12,7 @@ namespace Capstone.DAL
 {
     public class CampGroundSqlDAO : ICampGroundDAO
     {
+        public static int month;
         private string connectionString;
 
         //Single parameter constructor
@@ -65,6 +66,39 @@ namespace Capstone.DAL
 
             return campground;
         }
+        public int CampGroundMonthToReserve()
+        {
+            month = 0;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    // column    // param name  
+                    SqlCommand cmd = new SqlCommand("SELECT MONTH(@startDate);", conn);
+                    // param name    // param value
+                    cmd.Parameters.AddWithValue("@startDate", ParksReservationCLI.startDate);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        //CampGround campground = ConvertReaderToCampGround(reader);
+                        month = GetInt32(reader);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("An error occurred reading campsites by park.");
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+
+            return month;
+        }
+
     }
 
 }
