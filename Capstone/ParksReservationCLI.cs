@@ -157,9 +157,9 @@ namespace Capstone
             Console.WriteLine();
             Console.WriteLine($"Campsites at Campground {campgroundID}");
 
-            foreach (var sites in northAmericanCountries)
+            for (int index = 0; index < sites.Count; index++)
             {
-                Console.WriteLine(country);
+                Console.WriteLine(index + " - " + sites[index]);
             }
         }
 
