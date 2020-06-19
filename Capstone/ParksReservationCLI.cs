@@ -161,29 +161,30 @@ namespace Capstone
 
             //Console.WriteLine($"{CampGroundSqlDAO.month}");
 
-            Console.ReadLine();
+        //    //display top 5 available on those dates 
+        //    Console.ReadLine();
 
-            Console.WriteLine("Would you like to Reserve a campsite? (Y/N)");
-            string reserveInput = Console.ReadLine();
+        //    Console.WriteLine("Would you like to Reserve a campsite? (Y/N)");
+        //    string reserveInput = Console.ReadLine();
 
-            if (reserveInput.ToLower() == "y")
-            {
-                int siteID = CLIHelper.GetInteger("Please enter the desired site(ID):");
-                string familyName = CLIHelper.GetString("Enter Family Name:");
+        //    if (reserveInput.ToLower() == "y")
+        //    {
+        //        int siteID = CLIHelper.GetInteger("Please enter the desired site(ID):");
+        //        string familyName = CLIHelper.GetString("Enter Family Name:");
 
 
-                Reservations reservation = new Reservations
-                {
-                    SiteId = siteID,
-                    FamilyName = "",
-                    StartDate = startDate,
-                    EndDate = endDate,
-                    CreateDate = DateTime.Now
+        //        Reservations reservation = new Reservations
+        //        {
+        //            SiteId = siteID,
+        //            FamilyName = "",
+        //            StartDate = startDate,
+        //            EndDate = endDate,
+        //            CreateDate = DateTime.Now
 
-                };
-            }
+        //        };
+        //    }
             
-            return confirmationNumber;
+        //    return confirmationNumber;
         }
 
         private bool GetParks()
@@ -213,7 +214,7 @@ namespace Capstone
                 success = true;
             } catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
             return success;
 
@@ -240,7 +241,7 @@ namespace Capstone
                 success = true;
             } catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
 
             return success;
@@ -268,7 +269,7 @@ namespace Capstone
                 success = true;
             } catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
 
             return success;
@@ -294,7 +295,7 @@ namespace Capstone
                 success = true;
             } catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
             return success;
         }

@@ -96,6 +96,7 @@ namespace Capstone.DAL
             return month;
         }
 
+        
         public bool BetweenOpenMonths()
         {
             try
@@ -134,6 +135,7 @@ namespace Capstone.DAL
                 betweenOpenMonths = false;
             }
             return betweenOpenMonths;
+
         }
 
     }
