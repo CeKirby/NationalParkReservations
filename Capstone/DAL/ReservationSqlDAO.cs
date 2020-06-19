@@ -4,7 +4,13 @@ using System.Text;
 
 namespace Capstone.DAL
 {
-    class ReservationSqlDAO
+    public class ReservationSqlDAO : IReservationDAO
     {
+        private string connectionString;
+        public ReservationSqlDAO(string databaseconnectionString)
+        {
+            connectionString = databaseconnectionString;
+
+        }
     }
 }
