@@ -29,7 +29,7 @@ namespace Capstone.DAL
                     sqlCommand.Parameters.AddWithValue("@to_date", newReservation.EndDate);
                     sqlCommand.Parameters.AddWithValue("@create_date", newReservation.CreateDate);
 
-                    // print the new city id
+                   
                     int newReservationId = Convert.ToInt32(sqlCommand.ExecuteScalar());
                     Console.WriteLine("The new reservation number is " + newReservationId);
                 }
