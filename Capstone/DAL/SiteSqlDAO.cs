@@ -57,13 +57,8 @@ namespace Capstone.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-<<<<<<< HEAD
-
-                    string cmd = $"select  top 5 * from (Select Distinct reservation.Site_id), site join reservation on reservation.site_id = site.site_id where site.campground_id = @campgroundId and(reservation.from_date not between @startDate and @endDate) and(reservation.to_date not between @startDate and @endDate) ; ";
-=======
                     string cmd = $"select * from site join campground on site.campground_id = campground.campground_id where site.campground_id = @campgroundId and site.site_id not in (select site_id from reservation where (reservation.to_date > @startDate and @endDate > reservation.from_date)); ";
                     //string cmd = $"select top 5 * from site join reservation on reservation.site_id = site.site_id where site.campground_id = @campgroundId and(reservation.from_date not between @startDate and @endDate) and(reservation.to_date not between @startDate and @endDate); ";
->>>>>>> dc6d0dc7d602b89b1f6eb3e12d4aead9e19a122e
                     SqlCommand sqlCommand = new SqlCommand(cmd, conn);
                     sqlCommand.Parameters.AddWithValue("@campgroundId", campgroundId);
                     sqlCommand.Parameters.AddWithValue("@startDate", startDate);
