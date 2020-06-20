@@ -47,7 +47,38 @@ namespace Capstone.DAL
             return sites;
         }
 
+        public IList<Site> AvailableSites(int campgroundId, DateTime startDate, DateTime endDate)
+        {
+            List<Site> AvailableSites = new List<Site>();
 
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string cmd = $"select top 5 * from site join reservation on site.site_id = reservation.site_id where site.site_id not in (select site_id from reservation where((reservation.from_date <= @start) and (reservation.to_date >= @end))) and campground_id = @campgroundId;";
+                    SqlCommand sqlCommand = new SqlCommand(cmd, conn);
+                    sqlCommand.Parameters.AddWithValue("@campgroundId", campgroundId);
+                    sqlCommand.Parameters.AddWithValue("@start", startDate);
+                    sqlCommand.Parameters.AddWithValue("@end", endDate);
+                    SqlDataReader reader = sqlCommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Site campSite = ConvertReaderToSites(reader);
+                        AvailableSites.Add(campSite);
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return AvailableSites;
+        }
 
         private Site ConvertReaderToSites(SqlDataReader reader)
         {
@@ -61,6 +92,8 @@ namespace Capstone.DAL
             campSite.Utilities = Convert.ToBoolean(reader["utilities"]);
             return campSite;
         }
+
+
     }
 
 

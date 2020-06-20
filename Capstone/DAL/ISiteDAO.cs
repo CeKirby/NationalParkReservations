@@ -14,5 +14,7 @@ namespace Capstone.DAL
         /// <returns></returns>
         IList<Site> GetSitesByCampGroundId(int campGroundId);
 
+        IList<Site> AvailableSites(int campgroundId, DateTime startDate, DateTime endDate);
+
     }
 }

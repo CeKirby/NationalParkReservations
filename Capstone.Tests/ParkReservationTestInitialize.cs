@@ -67,7 +67,7 @@ namespace Capstone.Tests
                 }
                 try
                 {
-                    //make sure there is a campsite at test campground
+                    //make sure there are reservations
                     string reservationInsert = $"insert into reservation VALUES ({testCampsiteId}, 'Martha Grant', '2020-09-01', '2020-09-04', '{DateTime.Now}'); select scope_identity();";
                     SqlCommand cmd = new SqlCommand(reservationInsert, connection);
                     testReservationId1 = Convert.ToInt32(cmd.ExecuteScalar());
@@ -80,7 +80,7 @@ namespace Capstone.Tests
                 }
                 try
                 {
-                    //make sure there is a campsite at test campground
+                    //make sure there are reservations
                     string reservationInsert = $"insert into reservation VALUES ({testCampsiteId}, 'Lovelace Family Reservation', '2020-06-10', '2020-06-16', '{DateTime.Now}'); select scope_identity();";
                     SqlCommand cmd = new SqlCommand(reservationInsert, connection);
                     testReservationId2 = Convert.ToInt32(cmd.ExecuteScalar());

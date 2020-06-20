@@ -21,15 +21,13 @@ namespace Capstone.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string cmd = "Insert into reservation Values(@reservation_id,@site_id,@name,@from_date, @to_date, @create_date);select scope_identity();";
+                    string cmd = "Insert into reservation Values(@site_id,@name,@from_date, @to_date, @create_date);select scope_identity();";
                     SqlCommand sqlCommand = new SqlCommand(cmd, conn);
-                    sqlCommand.Parameters.AddWithValue("@reservation_id", newReservation.ReservationId);
                     sqlCommand.Parameters.AddWithValue("@site_id", newReservation.SiteId);
                     sqlCommand.Parameters.AddWithValue("@name", newReservation.FamilyName);
                     sqlCommand.Parameters.AddWithValue("@from_date", newReservation.StartDate);
                     sqlCommand.Parameters.AddWithValue("@to_date", newReservation.EndDate);
                     sqlCommand.Parameters.AddWithValue("@create_date", newReservation.CreateDate);
-
 
                     newReservationId = Convert.ToInt32(sqlCommand.ExecuteScalar());
                 }
