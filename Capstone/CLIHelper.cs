@@ -24,7 +24,6 @@ namespace Capstone
                 numberOfAttempts++;
             }
             while (!int.TryParse(userInput, out intValue));
-
             return intValue;
 
         }

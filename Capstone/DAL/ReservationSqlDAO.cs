@@ -138,38 +138,46 @@ namespace Capstone.DAL
 
             if (reserveInput.ToLower() == "y")
             {
-                int siteID = CLIHelper.GetInteger("Please enter the desired site(ID):");
-                string familyName = CLIHelper.GetString("Enter Group/Family Name:");
+                int siteID = CLIHelper.GetInteger("Which site should be reserved?:");
+                string familyName = CLIHelper.GetString("What name should the reservation be under?:");
                 Reservations reservation = new Reservations
                 {
                     SiteId = siteID,
-                    FamilyName = "",
+                    FamilyName = familyName,
                     StartDate = startDate,
                     EndDate = endDate,
                     CreateDate = DateTime.Now
 
                 };
                 confirmationNumber = AddReservation(reservation);
-                Console.WriteLine("The new reservation number is " + confirmationNumber);
+                Console.WriteLine("The reservation has been made. Your confirmation number is " + confirmationNumber);
 
             }
 
             return confirmationNumber;
         }
 
-        public int DifferenceInDates()
+        public decimal TotalStayCost(int campgroundId)
         {
+            decimal totalCostForStay = 0M;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
                     // column    // param name  
-                    SqlCommand cmd = new SqlCommand("SELECT DATEDIFF(day, @startDate, @endDate);", conn);
+                    SqlCommand cmd = new SqlCommand($"SELECT DATEDIFF(day, @startDate, @endDate);", conn);
                     // param name    // param value
                     cmd.Parameters.AddWithValue("@startDate", ParksReservationCLI.startDate);
                     cmd.Parameters.AddWithValue("@endDate", ParksReservationCLI.endDate);
-                    totalStay = (int)cmd.ExecuteScalar();
+                    int totalStay = (int)cmd.ExecuteScalar();
+
+                    SqlCommand sqlCmd = new SqlCommand($"SELECT daily_fee from campground where campground_id = @campgroundId", conn);
+                    // param name    // param value
+                    sqlCmd.Parameters.AddWithValue("@campgroundId", campgroundId);
+                    decimal cost = (decimal)sqlCmd.ExecuteScalar();
+
+                    totalCostForStay = cost * totalStay;
                 }
             }
             catch (SqlException ex)
@@ -178,7 +186,7 @@ namespace Capstone.DAL
                 Console.WriteLine(ex.Message);
                 throw;
             }
-            return totalStay;
+            return totalCostForStay;
         }
 
     }
