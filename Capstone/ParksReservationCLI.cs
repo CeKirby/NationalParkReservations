@@ -15,7 +15,7 @@ namespace Capstone
 
         const string Command_DisplayParks = "1";
         const string Command_SelectPark = "2";
-        const string Command_BookCampsite = "b";
+        const string Command_BookCampsite = "s";
         const string Command_ReturnToMainMenu = "r";
         const string Command_Quit = "q";
 
@@ -109,8 +109,8 @@ namespace Capstone
         private void SelectParkMenu()
         {
             Console.WriteLine();
-            Console.WriteLine(" B - Would you like to book a campsite?");
-            Console.WriteLine(" R - Or return to the Main Menu?");
+            Console.WriteLine(" S - Search for Available Reservation");
+            Console.WriteLine(" R - Return to the Main Menu");
             string command = Console.ReadLine();
             switch (command.ToLower())
             {
@@ -122,6 +122,7 @@ namespace Capstone
                     break;
                 default:
                     Console.WriteLine("The command provided was not valid, please try again.");
+                    SelectParkMenu();
                     break;
             }
 
@@ -150,6 +151,7 @@ namespace Capstone
                     Console.WriteLine($"Site No.: {availablesites[index].SiteId}   Max Occup.: {availablesites[index].SiteOccupency}   Accessible?: {availablesites[index].Accessible}  Max RV Length: {availablesites[index].RvLength}  Utility: {availablesites[index].Utilities}");
                 }
 
+
             }
             else
             {
@@ -158,15 +160,7 @@ namespace Capstone
                 Console.ReadLine();
                 RunCLI();
             }
-            //display top 5 available on those dates
-            //pulls correct value out of datetime to compare campgroundId open month next step
-
-
-            //Console.WriteLine($"{CampGroundSqlDAO.month}");
-
-            //    //display top 5 available on those dates 
-            //    Console.ReadLine();
-            
+           
         }
 
         
