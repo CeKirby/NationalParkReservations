@@ -138,8 +138,16 @@ namespace Capstone
             }
             startDate = CLIHelper.GetDateTime("Enter desired start date (MM-DD-YYYY):");
             endDate = CLIHelper.GetDateTime("Enter desired end date (MM-DD-YYY):");
+            //for testing
+            IList<Reservations> reservationsByCampground = reservationDAO.GetReservationByCampground(campgroundID);
+            for (int index = 0; index < reservationsByCampground.Count; index++)
+            {
+                Console.WriteLine($"SiteBooked: {reservationsByCampground[index].SiteId} From: {reservationsByCampground[index].StartDate.ToString("yyyy/MM/dd")} to {reservationsByCampground[index].EndDate.ToString("yyyy/MM/dd")}");
+            }
+            //
             int startMonth = campGroundDAO.CampGroundMonthToReserve();
             bool betweenOpenMonths = campGroundDAO.BetweenOpenMonths();
+
             if (betweenOpenMonths == true)
             {
                 decimal stayCost = reservationDAO.TotalStayCost(campgroundID);

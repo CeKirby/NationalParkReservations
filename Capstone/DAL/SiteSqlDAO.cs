@@ -49,6 +49,7 @@ namespace Capstone.DAL
 
         public IList<Site> AvailableSites(int campgroundId, DateTime startDate, DateTime endDate)
         {
+
             List<Site> AvailableSites = new List<Site>();
 
             try
@@ -56,7 +57,8 @@ namespace Capstone.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string cmd = $"select top 5 * from site join reservation on reservation.site_id = site.site_id where site.campground_id = @campgroundId and(reservation.from_date not between @startDate and @endDate) and(reservation.to_date not between @startDate and @endDate); ";
+                    string cmd = $"select top 5 * from site join campground on site.campground_id = campground.campground_id where site.campground_id = @campgroundId and site.site_id not in (select site_id from reservation where (reservation.from_date not between @startDate and @endDate) and (reservation.to_date not between @startDate and @endDate)); ";
+                    //string cmd = $"select top 5 * from site join reservation on reservation.site_id = site.site_id where site.campground_id = @campgroundId and(reservation.from_date not between @startDate and @endDate) and(reservation.to_date not between @startDate and @endDate); ";
                     SqlCommand sqlCommand = new SqlCommand(cmd, conn);
                     sqlCommand.Parameters.AddWithValue("@campgroundId", campgroundId);
                     sqlCommand.Parameters.AddWithValue("@startDate", startDate);
