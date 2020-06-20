@@ -9,6 +9,7 @@ namespace Capstone.DAL
     public class ReservationSqlDAO : IReservationDAO
     {
         private string connectionString;
+        public int totalStay;
         public ReservationSqlDAO(string databaseconnectionString)
         {
             connectionString = databaseconnectionString;
@@ -155,6 +156,31 @@ namespace Capstone.DAL
 
             return confirmationNumber;
         }
+
+        public int DifferenceInDates()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    // column    // param name  
+                    SqlCommand cmd = new SqlCommand("SELECT DATEDIFF(day, @startDate, @endDate);", conn);
+                    // param name    // param value
+                    cmd.Parameters.AddWithValue("@startDate", ParksReservationCLI.startDate);
+                    cmd.Parameters.AddWithValue("@endDate", ParksReservationCLI.endDate);
+                    totalStay = (int)cmd.ExecuteScalar();
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("An error occurred reading difference in days to stay.");
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+            return totalStay;
+        }
+
     }
 }
 
