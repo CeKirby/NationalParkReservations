@@ -6,6 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Linq;
 using System.Net;
+using System.Data.SqlClient;
 
 namespace Capstone
 {
@@ -143,6 +144,12 @@ namespace Capstone
             if (betweenOpenMonths == true)
             {
 
+                IList<Site> availablesites = siteDAO.AvailableSites(campgroundID, startDate, endDate);
+                for (int index = 0; index < availablesites.Count; index++)
+                {
+                    Console.WriteLine($"Site No.: {availablesites[index].SiteId}   Max Occup.: {availablesites[index].SiteOccupency}   Accessible?: {availablesites[index].Accessible}  Max RV Length: {availablesites[index].RvLength}  Utility: {availablesites[index].Utilities}");
+                }
+
             }
             else
             {
@@ -151,7 +158,6 @@ namespace Capstone
                 Console.ReadLine();
                 RunCLI();
             }
-            //Console.WriteLine(betweenOpenMonths);
             //display top 5 available on those dates
             //pulls correct value out of datetime to compare campgroundId open month next step
 
@@ -161,9 +167,9 @@ namespace Capstone
             //    //display top 5 available on those dates 
             //    Console.ReadLine();
             
-
         }
 
+        
         private void DisplayParks()
         {
             IList<Parks> parks = parkDAO.GetParks();

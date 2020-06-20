@@ -21,15 +21,15 @@ namespace Capstone.Tests
             Assert.IsTrue(sites.Count > 0);
         }
 
-        [TestMethod]
-        public void GetSiteByCampgroundInvalidIdTest()
-        {
-            //Arrange
-            SiteSqlDAO siteSqlDAO = new SiteSqlDAO(connectionString);
-            //Act
-            IList<Site> sites = siteSqlDAO.GetSitesByCampGroundId(-1);
-            //Assert
-            Assert.Fail();
-        }
+        //[TestMethod]
+        //public void GetSiteByCampgroundInvalidIdTest()
+        //{
+        //    //Arrange
+        //    SiteSqlDAO siteSqlDAO = new SiteSqlDAO(connectionString);
+        //    //Act
+        //    IList<Site> sites = siteSqlDAO.GetSitesByCampGroundId(-1);
+        //    //Assert
+        //    Assert.Fail();
+        //}
     }
 }

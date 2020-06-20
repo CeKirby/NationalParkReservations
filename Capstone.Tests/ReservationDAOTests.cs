@@ -11,16 +11,26 @@ namespace Capstone.Tests
     public class ReservationDAOTests : ParkReservationTestInitialize
     {
         [TestMethod]
-        public void MakeReservationTest()
+        public void AddReservationTest()
         {
             //Arrange
             ReservationSqlDAO reservationSqlDAO = new ReservationSqlDAO(connectionString);
-            //Act
             string start ="2020-07-10";
             string end = "2020-07-13";
-            int confirmationNumber = reservationSqlDAO.MakeReservation( Convert.ToDateTime(start), Convert.ToDateTime(end));
+            Reservations reservation = new Reservations
+            {
+                SiteId = 1,
+                FamilyName = "Jones",
+                StartDate = Convert.ToDateTime(start),
+                EndDate = Convert.ToDateTime(end),
+                CreateDate = DateTime.Now
+
+            };
+            //Act
+            int confirmationNumber = reservationSqlDAO.AddReservation(reservation);
             //Assert
             Assert.IsTrue(confirmationNumber > 0);
         }
+
     }
 }
