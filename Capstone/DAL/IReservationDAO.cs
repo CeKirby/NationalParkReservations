@@ -14,5 +14,8 @@ namespace Capstone.DAL
         IList<Reservations> GetReservationByCampground(int campgroundID);
 
         decimal TotalStayCost(int campgroundId);
+
+        int MakeReservation(DateTime startDate, DateTime endDate);
+
     }
 }

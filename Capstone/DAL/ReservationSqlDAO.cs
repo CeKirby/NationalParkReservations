@@ -137,19 +137,19 @@ namespace Capstone.DAL
 
             if (reserveInput.ToLower() == "y")
             {
-                int siteID = CLIHelper.GetInteger("Please enter the desired site(ID):");
-                string familyName = CLIHelper.GetString("Enter Group/Family Name:");
+                int siteID = CLIHelper.GetInteger("Which site should be reserved?:");
+                string familyName = CLIHelper.GetString("What name should the reservation be under?:");
                 Reservations reservation = new Reservations
                 {
                     SiteId = siteID,
-                    FamilyName = "",
+                    FamilyName = familyName,
                     StartDate = startDate,
                     EndDate = endDate,
                     CreateDate = DateTime.Now
 
                 };
                 confirmationNumber = AddReservation(reservation);
-                Console.WriteLine("The new reservation number is " + confirmationNumber);
+                Console.WriteLine("The reservation has been made. Your confirmation number is " + confirmationNumber);
 
             }
 

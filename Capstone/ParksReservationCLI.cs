@@ -17,6 +17,7 @@ namespace Capstone
         const string Command_SelectPark = "2";
         const string Command_BookCampsite = "s";
         const string Command_ReturnToMainMenu = "r";
+        const string Command_Cancel = "0";
         const string Command_Quit = "q";
 
         public static DateTime startDate;
@@ -130,33 +131,46 @@ namespace Capstone
 
         public void BookCampsite()
         {
-            campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
-            startDate = CLIHelper.GetDateTime("Enter desired start date (YYYY-MM-DD)");
-            endDate = CLIHelper.GetDateTime("Enter desired end date (YYYY-MM-DD)");
+            campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID) or 0 to Cancel:");
+            if (campgroundID == 0)
+            {
+                RunCLI();
+            }
+            startDate = CLIHelper.GetDateTime("Enter desired start date (MM-DD-YYYY):");
+            endDate = CLIHelper.GetDateTime("Enter desired end date (MM-DD-YYY):");
             int startMonth = campGroundDAO.CampGroundMonthToReserve();
             bool betweenOpenMonths = campGroundDAO.BetweenOpenMonths();
             if (betweenOpenMonths == true)
             {
                 decimal stayCost = reservationDAO.TotalStayCost(campgroundID);
                 IList<Site> availablesites = siteDAO.AvailableSites(campgroundID, startDate, endDate);
-                for (int index = 0; index < availablesites.Count; index++)
+
+                if (availablesites.Count == 0)
                 {
-                    Console.WriteLine($"Site No.: {availablesites[index].SiteId}   Max Occup.: {availablesites[index].SiteOccupency}   Accessible?: {availablesites[index].Accessible}  Max RV Length: {availablesites[index].RvLength}  Utility: {availablesites[index].Utilities} Cost: ${stayCost}");
+                    Console.WriteLine("There are no Available Sites for these dates.");
+                    BookCampsite();
                 }
-
-
+                else
+                {
+                    Console.WriteLine("Results matching your search criteria:");
+                    for (int index = 0; index < availablesites.Count; index++)
+                    {
+                        Console.WriteLine($"Site No.: {availablesites[index].SiteId}  Max Occup.: {availablesites[index].SiteOccupency}   Accessible?: {availablesites[index].Accessible}  Max RV Length: {availablesites[index].RvLength}  Utility: {availablesites[index].Utilities} Cost: ${stayCost}");
+                    }
+                    reservationDAO.MakeReservation(startDate, endDate);
+                }
             }
             else
             {
                 Console.WriteLine("Park is closed at date of reservation");
                 Console.WriteLine("Press any key to return to main menu");
                 Console.ReadLine();
-                RunCLI();
+
             }
-           
+
         }
 
-        
+
         private void DisplayParks()
         {
             IList<Parks> parks = parkDAO.GetParks();
