@@ -13,6 +13,7 @@ namespace Capstone.Models
         public bool Accessible { get; set; }
         public int RvLength { get; set; }
         public bool Utilities { get; set; }
+        public int Popular { get; set; }
 
 
         public override string ToString()

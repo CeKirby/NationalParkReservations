@@ -134,6 +134,7 @@ namespace Capstone
             campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID) or 0 to Cancel:");
             if (campgroundID == 0)
             {
+                Console.Clear();
                 RunCLI();
             }
             startDate = CLIHelper.GetDateTime("Enter desired start date (MM-DD-YYYY):");

@@ -153,7 +153,7 @@ namespace Capstone.DAL
                 Console.WriteLine("The reservation has been made. Your confirmation number is " + confirmationNumber);
 
             }
-
+            Console.Clear();
             return confirmationNumber;
         }
 
