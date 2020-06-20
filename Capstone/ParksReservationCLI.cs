@@ -15,7 +15,7 @@ namespace Capstone
 
         const string Command_DisplayParks = "1";
         const string Command_SelectPark = "2";
-        const string Command_BookCampsite = "b";
+        const string Command_BookCampsite = "s";
         const string Command_ReturnToMainMenu = "r";
         const string Command_Quit = "q";
 
