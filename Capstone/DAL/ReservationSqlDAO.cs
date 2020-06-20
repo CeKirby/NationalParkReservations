@@ -168,10 +168,7 @@ namespace Capstone.DAL
                     // param name    // param value
                     cmd.Parameters.AddWithValue("@startDate", ParksReservationCLI.startDate);
                     cmd.Parameters.AddWithValue("@endDate", ParksReservationCLI.endDate);
-
                     totalStay = (int)cmd.ExecuteScalar();
-
-
                 }
             }
             catch (SqlException ex)
