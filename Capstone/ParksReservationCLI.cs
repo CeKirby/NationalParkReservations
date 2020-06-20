@@ -131,11 +131,11 @@ namespace Capstone
         {
             campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
             //Display campground reservation names and dates here? THEN ask for date?
-            IList<Reservations> reservationsByCampground = reservationDAO.GetReservationByCampground(campgroundID);
-            for (int index = 0; index < reservationsByCampground.Count; index++)
-            {
-                Console.WriteLine($"By: {reservationsByCampground[index].FamilyName.PadRight(35)} From: {reservationsByCampground[index].StartDate.ToString("yyyy/MM/dd")} to {reservationsByCampground[index].EndDate.ToString("yyyy/MM/dd")}");
-            }
+            //IList<Reservations> reservationsByCampground = reservationDAO.GetReservationByCampground(campgroundID);
+            //for (int index = 0; index < reservationsByCampground.Count; index++)
+            //{
+            //    Console.WriteLine($"By: {reservationsByCampground[index].FamilyName.PadRight(35)} From: {reservationsByCampground[index].StartDate.ToString("yyyy/MM/dd")} to {reservationsByCampground[index].EndDate.ToString("yyyy/MM/dd")}");
+            //}
             Console.WriteLine();
             startDate = CLIHelper.GetDateTime("Enter desired start date (YYYY-MM-DD)");
             endDate = CLIHelper.GetDateTime("Enter desired end date (YYYY-MM-DD)");

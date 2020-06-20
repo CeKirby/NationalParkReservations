@@ -93,7 +93,8 @@ namespace Capstone.DAL
                 {
                     conn.Open();
                     // column    // param name  
-                    SqlCommand cmd = new SqlCommand("select reservation.site_id, reservation.name, from_date, to_date from reservation join site on site.site_id = reservation.site_id join campground on campground.campground_id = site.campground_id where campground.campground_id = @campground_id", conn);
+                    SqlCommand cmd = new SqlCommand("select reservation.site_id, reservation.name, from_date, to_date from reservation join site on site.site_id = reservation.site_id join campground on campground.campground_id =" +
+                        " site.campground_id where campground.campground_id = @campground_id  ", conn);
 
                     // param name    // param value
                     cmd.Parameters.AddWithValue("@campground_id", ParksReservationCLI.campgroundID);
