@@ -137,11 +137,11 @@ namespace Capstone
             bool betweenOpenMonths = campGroundDAO.BetweenOpenMonths();
             if (betweenOpenMonths == true)
             {
-
+                decimal stayCost = reservationDAO.TotalStayCost(campgroundID);
                 IList<Site> availablesites = siteDAO.AvailableSites(campgroundID, startDate, endDate);
                 for (int index = 0; index < availablesites.Count; index++)
                 {
-                    Console.WriteLine($"Site No.: {availablesites[index].SiteId}   Max Occup.: {availablesites[index].SiteOccupency}   Accessible?: {availablesites[index].Accessible}  Max RV Length: {availablesites[index].RvLength}  Utility: {availablesites[index].Utilities}");
+                    Console.WriteLine($"Site No.: {availablesites[index].SiteId}   Max Occup.: {availablesites[index].SiteOccupency}   Accessible?: {availablesites[index].Accessible}  Max RV Length: {availablesites[index].RvLength}  Utility: {availablesites[index].Utilities} Cost: ${stayCost}");
                 }
 
 

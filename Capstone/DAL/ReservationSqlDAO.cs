@@ -156,19 +156,27 @@ namespace Capstone.DAL
             return confirmationNumber;
         }
 
-        public int DifferenceInDates()
+        public decimal TotalStayCost(int campgroundId)
         {
+            decimal totalCostForStay = 0M;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
                     // column    // param name  
-                    SqlCommand cmd = new SqlCommand("SELECT DATEDIFF(day, @startDate, @endDate);", conn);
+                    SqlCommand cmd = new SqlCommand($"SELECT DATEDIFF(day, @startDate, @endDate);", conn);
                     // param name    // param value
                     cmd.Parameters.AddWithValue("@startDate", ParksReservationCLI.startDate);
                     cmd.Parameters.AddWithValue("@endDate", ParksReservationCLI.endDate);
-                    totalStay = (int)cmd.ExecuteScalar();
+                    int totalStay = (int)cmd.ExecuteScalar();
+
+                    SqlCommand sqlCmd = new SqlCommand($"SELECT daily_fee from campground where campground_id = @campgroundId", conn);
+                    // param name    // param value
+                    sqlCmd.Parameters.AddWithValue("@campgroundId", campgroundId);
+                    decimal cost = (decimal)sqlCmd.ExecuteScalar();
+
+                    totalCostForStay = cost * totalStay;
                 }
             }
             catch (SqlException ex)
@@ -177,7 +185,7 @@ namespace Capstone.DAL
                 Console.WriteLine(ex.Message);
                 throw;
             }
-            return totalStay;
+            return totalCostForStay;
         }
 
     }

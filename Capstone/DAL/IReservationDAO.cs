@@ -13,6 +13,6 @@ namespace Capstone.DAL
 
         IList<Reservations> GetReservationByCampground(int campgroundID);
 
-        int DifferenceInDates();
+        decimal TotalStayCost(int campgroundId);
     }
 }
