@@ -69,7 +69,6 @@ namespace Capstone.DAL
                         AvailableSites.Add(campSite);
                     }
 
-
                 }
             }
             catch (Exception e)

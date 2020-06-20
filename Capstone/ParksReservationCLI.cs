@@ -109,8 +109,8 @@ namespace Capstone
         private void SelectParkMenu()
         {
             Console.WriteLine();
-            Console.WriteLine(" B - Would you like to book a campsite?");
-            Console.WriteLine(" R - Or return to the Main Menu?");
+            Console.WriteLine(" S - Search for Available Reservation");
+            Console.WriteLine(" R - Return to the Main Menu");
             string command = Console.ReadLine();
             switch (command.ToLower())
             {
@@ -122,6 +122,7 @@ namespace Capstone
                     break;
                 default:
                     Console.WriteLine("The command provided was not valid, please try again.");
+                    SelectParkMenu();
                     break;
             }
 
@@ -130,13 +131,6 @@ namespace Capstone
         public void BookCampsite()
         {
             campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID)");
-            //Display campground reservation names and dates here? THEN ask for date?
-            IList<Reservations> reservationsByCampground = reservationDAO.GetReservationByCampground(campgroundID);
-            for (int index = 0; index < reservationsByCampground.Count; index++)
-            {
-                Console.WriteLine($"By: {reservationsByCampground[index].FamilyName.PadRight(35)} From: {reservationsByCampground[index].StartDate.ToString("yyyy/MM/dd")} to {reservationsByCampground[index].EndDate.ToString("yyyy/MM/dd")}");
-            }
-            Console.WriteLine();
             startDate = CLIHelper.GetDateTime("Enter desired start date (YYYY-MM-DD)");
             endDate = CLIHelper.GetDateTime("Enter desired end date (YYYY-MM-DD)");
             int startMonth = campGroundDAO.CampGroundMonthToReserve();
@@ -150,6 +144,7 @@ namespace Capstone
                     Console.WriteLine($"Site No.: {availablesites[index].SiteId}   Max Occup.: {availablesites[index].SiteOccupency}   Accessible?: {availablesites[index].Accessible}  Max RV Length: {availablesites[index].RvLength}  Utility: {availablesites[index].Utilities}");
                 }
 
+
             }
             else
             {
@@ -158,15 +153,7 @@ namespace Capstone
                 Console.ReadLine();
                 RunCLI();
             }
-            //display top 5 available on those dates
-            //pulls correct value out of datetime to compare campgroundId open month next step
-
-
-            //Console.WriteLine($"{CampGroundSqlDAO.month}");
-
-            //    //display top 5 available on those dates 
-            //    Console.ReadLine();
-            
+           
         }
 
         
