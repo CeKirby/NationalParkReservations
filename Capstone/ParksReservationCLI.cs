@@ -139,13 +139,13 @@ namespace Capstone
             }
             startDate = CLIHelper.GetDateTime("Enter desired start date (MM-DD-YYYY):");
             endDate = CLIHelper.GetDateTime("Enter desired end date (MM-DD-YYY):");
-            //for testing
-            IList<Reservations> reservationsByCampground = reservationDAO.GetReservationByCampground(campgroundID);
-            for (int index = 0; index < reservationsByCampground.Count; index++)
-            {
-                Console.WriteLine($"SiteBooked: {reservationsByCampground[index].SiteId} From: {reservationsByCampground[index].StartDate.ToString("yyyy/MM/dd")} to {reservationsByCampground[index].EndDate.ToString("yyyy/MM/dd")}");
-            }
-            //
+            ////for testing
+            //IList<Reservations> reservationsByCampground = reservationDAO.GetReservationByCampground(campgroundID);
+            //for (int index = 0; index < reservationsByCampground.Count; index++)
+            //{
+            //    Console.WriteLine($"SiteBooked: {reservationsByCampground[index].SiteId} From: {reservationsByCampground[index].StartDate.ToString("yyyy/MM/dd")} to {reservationsByCampground[index].EndDate.ToString("yyyy/MM/dd")}");
+            //}
+            ////
             int startMonth = campGroundDAO.CampGroundMonthToReserve();
             bool betweenOpenMonths = campGroundDAO.BetweenOpenMonths();
 
@@ -162,9 +162,10 @@ namespace Capstone
                 else
                 {
                     Console.WriteLine("Results matching your search criteria:");
-                    for (int index = 0; index < availablesites.Count; index++)
+                    foreach (Site site in availablesites)
                     {
-                        Console.WriteLine($"Site No.: {availablesites[index].SiteId}  Max Occup.: {availablesites[index].SiteOccupency}   Accessible?: {availablesites[index].Accessible}  Max RV Length: {availablesites[index].RvLength}  Utility: {availablesites[index].Utilities} Cost: ${stayCost}");
+                        Console.Write(site.ToString());
+                        Console.WriteLine($"Cost: {stayCost:C2}");
                     }
                     reservationDAO.MakeReservation(startDate, endDate);
                 }
