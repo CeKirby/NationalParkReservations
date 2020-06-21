@@ -57,7 +57,7 @@ namespace Capstone.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string cmd = $"select top 5 *, (select count(*) from reservation where site_id=s.site_id) as popular from site as s join campground on s.campground_id = campground.campground_id where s.campground_id = @campgroundId and s.site_id not in (select site_id from reservation where (reservation.to_date > @startDate and @endDate > reservation.from_date)) order by popular desc";                    
+                    string cmd = $"select top 5 *, (select count(*) from reservation where site_id=s.site_id) as popular from site as s join campground on s.campground_id = campground.campground_id where s.campground_id = @campgroundId and s.site_id not in (select site_id from reservation where (reservation.to_date > @startDate and @endDate > reservation.from_date)) order by popular desc";
                     SqlCommand sqlCommand = new SqlCommand(cmd, conn);
                     sqlCommand.Parameters.AddWithValue("@campgroundId", campgroundId);
                     sqlCommand.Parameters.AddWithValue("@startDate", startDate);
@@ -65,7 +65,8 @@ namespace Capstone.DAL
                     SqlDataReader reader = sqlCommand.ExecuteReader();
                     while (reader.Read())
                     {
-                        Site campSite = ConvertReaderToSites(reader);
+                         Site campSite = ConvertReaderToSites(reader);
+                        
                         AvailableSites.Add(campSite);
                     }
 
@@ -89,6 +90,7 @@ namespace Capstone.DAL
             campSite.Accessible = Convert.ToBoolean(reader["accessible"]);
             campSite.RvLength = Convert.ToInt32(reader["max_rv_length"]);
             campSite.Utilities = Convert.ToBoolean(reader["utilities"]);
+
             return campSite;
         }
 

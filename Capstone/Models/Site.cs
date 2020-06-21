@@ -19,7 +19,7 @@ namespace Capstone.Models
         public override string ToString()
         {
             return SiteId.ToString().PadRight(6) + CampgroundId.ToString().PadRight(6) + SiteNumber.ToString().PadRight(6) + SiteOccupency.ToString().PadRight(6) +
-               (Accessible ? "Accessible" : "NonAccessbile").PadRight(10) + RvLength.ToString().PadRight(8) + (Utilities ? "Utility Available" : "Utility Not Available").PadRight(20);
+               (Accessible ? "Accessible" : "Not Accessible").PadRight(10) + RvLength.ToString().PadRight(8) + (Utilities ? "Utility Available" : "Utility Not Available").PadRight(20);
         }
     }
 }
