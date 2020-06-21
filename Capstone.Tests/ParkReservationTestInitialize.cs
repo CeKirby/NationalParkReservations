@@ -21,6 +21,7 @@ namespace Capstone.Tests
         protected int testCampsiteId = 1;
         protected int testReservationId1 = 0;
         protected int testReservationId2 = 0;
+        protected DateTime testStartDate =  new DateTime(2020, 05, 20);
 
         protected DateTime teststartDate = DateTime.Parse("2020-06-17");
         protected DateTime testEndDate = DateTime.Parse("2020-06-24");
