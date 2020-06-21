@@ -4,6 +4,7 @@ using Capstone.DAL;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Capstone.Tests
 {
@@ -30,6 +31,48 @@ namespace Capstone.Tests
             int confirmationNumber = reservationSqlDAO.AddReservation(reservation);
             //Assert
             Assert.IsTrue(confirmationNumber > 0);
+        }
+
+        [TestMethod]
+        public void TotalStayCostTest()
+        {
+
+            //Arrange
+            decimal costAsAnticpiated = 0;
+            ParksReservationCLI.campgroundID = 1;
+            ParksReservationCLI.startDate = teststartDate;
+            ParksReservationCLI.endDate = testEndDate;
+
+            ReservationSqlDAO reservationSqlDAO = new ReservationSqlDAO(connectionString);
+            //Act
+            costAsAnticpiated = reservationSqlDAO.TotalStayCost(1);
+            //Assert
+            Assert.AreEqual(245.00M, costAsAnticpiated);
+
+        }
+
+        [TestMethod]
+
+        public void GetReservationByCampgroundTest()
+        {
+            //Arrange
+            //ParksReservationCLI.campgroundID = 1;
+            ReservationSqlDAO reservationSqlDAO = new ReservationSqlDAO(connectionString);
+            //Act
+            IList<Reservations> reservations = reservationSqlDAO.GetReservationByCampground(ParksReservationCLI.campgroundID);
+            //Assert
+            Assert.IsTrue(reservations.Count > 0);
+        }
+
+        [TestMethod]
+        public void GetReservationBySitesTest()
+        {
+            //Arrange
+            ReservationSqlDAO reservationSqlDAO = new ReservationSqlDAO(connectionString);
+            //Act
+            IList<Reservations> reservations = reservationSqlDAO.GetReservationBySites(testCampsiteId);
+            //Assert
+            Assert.IsTrue(reservations.Count > 0);
         }
 
     }
