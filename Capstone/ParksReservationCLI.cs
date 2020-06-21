@@ -131,21 +131,22 @@ namespace Capstone
 
         public void BookCampsite()
         {
+            try { 
             campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID) or 0 to Cancel:");
-         
-
             if (campgroundID == 0)
             {
                 Console.Clear();
-                RunCLI();
+                throw new Exception();
             }
-            else if (IsValidSite() == false)
-            {
-                Console.WriteLine("Please enter a campground ID from the camgrounds displayed.");
-                campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID) or 0 to Cancel:");
-            }
+
             startDate = CLIHelper.GetDateTime("Enter desired start date (MM-DD-YYYY):");
             endDate = CLIHelper.GetDateTime("Enter desired end date (MM-DD-YYY):");
+            
+            if (startDate > endDate || endDate < startDate)
+            {
+                Console.WriteLine("Date input invalid, please try again");
+                    throw new Exception();
+            }
             ////for testing
             //IList<Reservations> reservationsByCampground = reservationDAO.GetReservationByCampground(campgroundID);
             //for (int index = 0; index < reservationsByCampground.Count; index++)
@@ -156,33 +157,38 @@ namespace Capstone
             int startMonth = campGroundDAO.CampGroundMonthToReserve(startDate);
             bool betweenOpenMonths = campGroundDAO.BetweenOpenMonths(campgroundID, startMonth);
 
-            if (betweenOpenMonths == true)
-            {
-                decimal stayCost = reservationDAO.TotalStayCost(campgroundID);
-                IList<Site> availablesites = siteDAO.AvailableSites(campgroundID, startDate, endDate);
-
-                if (availablesites.Count == 0)
+                if (betweenOpenMonths == true)
                 {
-                    Console.WriteLine("There are no Available Sites for these dates.");
-                    BookCampsite();
+                    decimal stayCost = reservationDAO.TotalStayCost(campgroundID);
+                    IList<Site> availablesites = siteDAO.AvailableSites(campgroundID, startDate, endDate);
+
+                    if (availablesites.Count == 0)
+                    {
+                        Console.WriteLine("There are no Available Sites for these dates.");
+                        BookCampsite();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Results matching your search criteria:");
+                        foreach (Site site in availablesites)
+                        {
+                            Console.Write(site.ToString());
+                            Console.WriteLine($"Cost: {stayCost:C2}");
+                        }
+                        reservationDAO.MakeReservation(startDate, endDate);
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Results matching your search criteria:");
-                    foreach (Site site in availablesites)
-                    {
-                        Console.Write(site.ToString());
-                        Console.WriteLine($"Cost: {stayCost:C2}");
-                    }
-                    reservationDAO.MakeReservation(startDate, endDate);
+                    Console.WriteLine("Park is closed at date of reservation");
+                    Console.WriteLine("Press any key to return to main menu");
+                    Console.ReadLine();
                 }
+                
             }
-            else
+            catch (Exception er)
             {
-                Console.WriteLine("Park is closed at date of reservation");
-                Console.WriteLine("(R) Return to main menu");
-                Console.ReadLine();
-
+                
             }
 
         }
@@ -231,64 +237,35 @@ namespace Capstone
         private void DisplayCampgroundsbyParkId()
         {
             int parkID = CLIHelper.GetInteger("Input the ID of the Park to show Campgrunds:");
-            if (parkID > 0 && parkID < parkDAO.GetParks().Count)
+
+            IList<CampGround> campGrounds = campGroundDAO.GetCampGroundByParkId(parkID);
+
+            for (int index = 0; index < campGrounds.Count; index++)
             {
-
-                IList<CampGround> campGrounds = campGroundDAO.GetCampGroundByParkId(parkID);
-
-                for (int index = 0; index < campGrounds.Count; index++)
-                {
-                    Console.WriteLine($"{campGrounds[index].CampgroundName}");
-                    Console.WriteLine($"Campground ID:   {campGrounds[index].CampGroundId}");
-                    Console.WriteLine($"Open Month:      {campGrounds[index].OpenMonth}");
-                    Console.WriteLine($"Closing Month:   {campGrounds[index].ClosingMonth}");
-                    Console.WriteLine($"Daily Fee:       {campGrounds[index].DailyFee}");
-                    menuSpacer();
-
-                }
-            }
-            else
-            {
-                Console.WriteLine("Please enter a ParkId from the parks displayed.");
+                Console.WriteLine($"{campGrounds[index].CampgroundName}");
+                Console.WriteLine($"Campground ID:   {campGrounds[index].CampGroundId}");
+                Console.WriteLine($"Open Month:      {campGrounds[index].OpenMonth}");
+                Console.WriteLine($"Closing Month:   {campGrounds[index].ClosingMonth}");
+                Console.WriteLine($"Daily Fee:       {campGrounds[index].DailyFee}");
+                menuSpacer();
 
             }
+
         }
 
-        //private void DisplaySitesByCampGroundId()
-        //{
-        //    int campgroundID = CLIHelper.GetInteger("Input the ID of the Campground:");
-
-            
-        //        Console.WriteLine();
-        //        Console.WriteLine($"Campsites at Campground {campgroundID}");
-
-        //        for (int index = 0; index < sites.Count; index++)
-        //        {
-        //            Console.WriteLine(index + " - " + sites[index]);
-        //        }
-            
-        //    //else
-        //    //{
-        //    //    Console.WriteLine("Please enter a CampgroundID from the displayed Campgrounds.");
-        //    //}
-        //}
-        private bool IsValidSite()
+        private void DisplaySitesByCampGroundId()
         {
-            bool isValid = false;
+            int campgroundID = CLIHelper.GetInteger("Input the ID of the Campground:");
+
             IList<Site> sites = siteDAO.GetSitesByCampGroundId(campgroundID);
-            Site site = new Site()
+
+            Console.WriteLine();
+            Console.WriteLine($"Campsites at Campground {campgroundID}");
+
+            for (int index = 0; index < sites.Count; index++)
             {
-                CampgroundId = campgroundID
-            };
-            if (sites.Contains(site))
-            {
-                isValid = true;
+                Console.WriteLine(index + " - " + sites[index]);
             }
-            else
-            {
-                isValid = false;
-            }
-            return isValid;
         }
     }
 }
