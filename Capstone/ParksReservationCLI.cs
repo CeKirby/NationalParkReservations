@@ -146,8 +146,8 @@ namespace Capstone
             //    Console.WriteLine($"SiteBooked: {reservationsByCampground[index].SiteId} From: {reservationsByCampground[index].StartDate.ToString("yyyy/MM/dd")} to {reservationsByCampground[index].EndDate.ToString("yyyy/MM/dd")}");
             //}
             ////
-            int startMonth = campGroundDAO.CampGroundMonthToReserve();
-            bool betweenOpenMonths = campGroundDAO.BetweenOpenMonths();
+            int startMonth = campGroundDAO.CampGroundMonthToReserve(startDate);
+            bool betweenOpenMonths = campGroundDAO.BetweenOpenMonths(campgroundID, startMonth);
 
             if (betweenOpenMonths == true)
             {
@@ -173,7 +173,7 @@ namespace Capstone
             else
             {
                 Console.WriteLine("Park is closed at date of reservation");
-                Console.WriteLine("Press any key to return to main menu");
+                Console.WriteLine("(R) Return to main menu");
                 Console.ReadLine();
 
             }
