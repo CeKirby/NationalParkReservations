@@ -17,10 +17,15 @@ namespace Capstone.Tests
         protected string connectionString = @"Data Source=.\SQLExpress;Database=npcampground;Trusted_Connection=True;";
         protected int testParkId = 0;
         protected int testCampgroundId = 0;
+        protected int testCampgroundId2 = 1;
         protected int testCampsiteId = 1;
         protected int testReservationId1 = 0;
         protected int testReservationId2 = 0;
         protected DateTime testStartDate =  new DateTime(2020, 05, 20);
+
+        protected DateTime teststartDate = DateTime.Parse("2020-06-17");
+        protected DateTime testEndDate = DateTime.Parse("2020-06-24");
+
 
         [TestInitialize]
         public void Initialize()
@@ -92,6 +97,7 @@ namespace Capstone.Tests
                     Console.WriteLine("An error occurred inserting new reservation.");
                     Console.WriteLine(e.Message);
                 }
+                
             }
         }
 
