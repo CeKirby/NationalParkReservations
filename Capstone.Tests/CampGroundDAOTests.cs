@@ -59,5 +59,16 @@ namespace Capstone.Tests
             //Assert
             Assert.IsTrue(campgrounds.Count > 0);
         }
+        [TestMethod]
+        public void IsValidCampgroundTest()
+        {
+            //Arrange
+            CampGroundSqlDAO campgroundDAO = new CampGroundSqlDAO(connectionString);
+            //Act
+            bool isValid = campgroundDAO.IsValidCampground(testParkId, testCampgroundId);
+            //Assert
+            Assert.AreEqual(true, isValid);
+        }
+
     }
 }

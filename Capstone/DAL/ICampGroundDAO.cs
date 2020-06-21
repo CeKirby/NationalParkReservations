@@ -21,6 +21,7 @@ namespace Capstone.DAL
 
         bool BetweenOpenMonths(int campgroundId, int month);
 
+        bool IsValidCampground(int parkID, int campgroundID);
 
     }
 }

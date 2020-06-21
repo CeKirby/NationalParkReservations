@@ -139,6 +139,22 @@ namespace Capstone.DAL
 
         }
 
+        public bool IsValidCampground(int parkID, int campgroundId)
+        {
+            bool isValid = false;
+            IList<CampGround> campGrounds = GetCampGroundByParkId(parkID);
+            foreach (CampGround campGround in campGrounds)
+            {
+                if (campGround.CampGroundId == campgroundId)
+                {
+                    isValid = true;
+                    break;
+                }
+            }
+
+            return isValid;
+        }
+
     }
 
 }

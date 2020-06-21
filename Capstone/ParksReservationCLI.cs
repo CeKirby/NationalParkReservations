@@ -23,6 +23,7 @@ namespace Capstone
         public static DateTime startDate;
         public static DateTime endDate;
         public static int campgroundID;
+        public int parkId;
 
         private ICampGroundDAO campGroundDAO;
         private IParkDAO parkDAO;
@@ -60,7 +61,7 @@ namespace Capstone
                         menuSpacer();
                         DisplayParkIds();
                         menuSpacer();
-                        DisplayCampgroundsbyParkId();
+                        parkId = DisplayCampgroundsbyParkId();
                         SelectParkMenu();
                         break;
                     case Command_Quit:
@@ -116,7 +117,7 @@ namespace Capstone
             switch (command.ToLower())
             {
                 case Command_BookCampsite:
-                    BookCampsite();
+                    BookCampsite(parkId);
                     break;
                 case Command_ReturnToMainMenu:
                     RunCLI();
@@ -129,7 +130,7 @@ namespace Capstone
 
         }
 
-        public void BookCampsite()
+        public void BookCampsite(int parkId)
         {
             campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID) or 0 to Cancel:");
          
@@ -139,7 +140,7 @@ namespace Capstone
                 Console.Clear();
                 RunCLI();
             }
-            else if (IsValidSite() == false)
+            else if (campGroundDAO.IsValidCampground(parkId, campgroundID) == false)
             {
                 Console.WriteLine("Please enter a campground ID from the camgrounds displayed.");
                 campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID) or 0 to Cancel:");
@@ -164,7 +165,7 @@ namespace Capstone
                 if (availablesites.Count == 0)
                 {
                     Console.WriteLine("There are no Available Sites for these dates.");
-                    BookCampsite();
+                    BookCampsite(parkId);
                 }
                 else
                 {
@@ -228,9 +229,10 @@ namespace Capstone
             }
         }
 
-        private void DisplayCampgroundsbyParkId()
+        private int DisplayCampgroundsbyParkId()
         {
-            int parkID = CLIHelper.GetInteger("Input the ID of the Park to show Campgrunds:");
+
+            int parkID = CLIHelper.GetInteger("Input the ID of the Park to show Campgrounds:");
             if (parkID > 0 && parkID < parkDAO.GetParks().Count)
             {
 
@@ -252,6 +254,7 @@ namespace Capstone
                 Console.WriteLine("Please enter a ParkId from the parks displayed.");
 
             }
+            return parkID;
         }
 
         //private void DisplaySitesByCampGroundId()
@@ -272,23 +275,6 @@ namespace Capstone
         //    //    Console.WriteLine("Please enter a CampgroundID from the displayed Campgrounds.");
         //    //}
         //}
-        private bool IsValidSite()
-        {
-            bool isValid = false;
-            IList<Site> sites = siteDAO.GetSitesByCampGroundId(campgroundID);
-            Site site = new Site()
-            {
-                CampgroundId = campgroundID
-            };
-            if (sites.Contains(site))
-            {
-                isValid = true;
-            }
-            else
-            {
-                isValid = false;
-            }
-            return isValid;
-        }
+       
     }
 }

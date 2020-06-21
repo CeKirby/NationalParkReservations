@@ -21,6 +21,8 @@ namespace Capstone.Tests
             Assert.IsTrue(sites.Count > 0);
         }
 
+
+
         //[TestMethod]
         //public void GetSiteByCampgroundInvalidIdTest()
         //{
@@ -30,6 +32,6 @@ namespace Capstone.Tests
         //    IList<Site> sites = siteSqlDAO.GetSitesByCampGroundId(-1);
         //    //Assert
         //    Assert.Fail();
-        }
     }
 }
+
