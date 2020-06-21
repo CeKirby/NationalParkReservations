@@ -151,6 +151,10 @@ namespace Capstone.DAL
                 confirmationNumber = AddReservation(reservation);
                 Console.WriteLine("The reservation has been made. Your confirmation number is " + confirmationNumber);
 
+            } else
+            {
+                Console.Clear();
+                confirmationNumber = -1;
             }
            
             return confirmationNumber;
