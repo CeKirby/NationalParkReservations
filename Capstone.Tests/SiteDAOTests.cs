@@ -30,6 +30,6 @@ namespace Capstone.Tests
         //    IList<Site> sites = siteSqlDAO.GetSitesByCampGroundId(-1);
         //    //Assert
         //    Assert.Fail();
-        //}
+        }
     }
 }

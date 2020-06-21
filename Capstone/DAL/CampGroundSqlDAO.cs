@@ -67,7 +67,7 @@ namespace Capstone.DAL
 
             return campground;
         }
-        public int CampGroundMonthToReserve()
+        public int CampGroundMonthToReserve(DateTime startDate)
         {
             month = 0;
 
@@ -79,7 +79,7 @@ namespace Capstone.DAL
                     // column    // param name  
                     SqlCommand cmd = new SqlCommand("SELECT MONTH(@startDate) as MonthInt;", conn);
                     // param name    // param value
-                    cmd.Parameters.AddWithValue("@startDate", ParksReservationCLI.startDate);
+                    cmd.Parameters.AddWithValue("@startDate", startDate);
 
                     month = (int)cmd.ExecuteScalar();
 
@@ -97,7 +97,7 @@ namespace Capstone.DAL
         }
 
         
-        public bool BetweenOpenMonths()
+        public bool BetweenOpenMonths(int campgroundId, int month)
         {
             try
             {
@@ -108,7 +108,7 @@ namespace Capstone.DAL
                     SqlCommand cmd = new SqlCommand("SELECT open_from_mm, open_to_mm from campground where @month between open_from_mm and open_to_mm and campground_id = @campground_id", conn);
                     // param name    // param value
                     cmd.Parameters.AddWithValue("@month", month);
-                    cmd.Parameters.AddWithValue("@campground_id", ParksReservationCLI.campgroundID);
+                    cmd.Parameters.AddWithValue("@campground_id", campgroundId);
 
                     var certainty = cmd.ExecuteScalar();
 
