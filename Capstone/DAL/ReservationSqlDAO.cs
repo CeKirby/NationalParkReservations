@@ -98,7 +98,7 @@ namespace Capstone.DAL
                         " site.campground_id where campground.campground_id = @campground_id  ", conn);
 
                     // param name    // param value
-                    cmd.Parameters.AddWithValue("@campground_id", ParksReservationCLI.campgroundID);
+                    cmd.Parameters.AddWithValue("@campground_id", campgroundID);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 

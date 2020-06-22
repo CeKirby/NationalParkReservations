@@ -56,10 +56,9 @@ namespace Capstone.Tests
         public void GetReservationByCampgroundTest()
         {
             //Arrange
-            //ParksReservationCLI.campgroundID = 1;
             ReservationSqlDAO reservationSqlDAO = new ReservationSqlDAO(connectionString);
             //Act
-            IList<Reservations> reservations = reservationSqlDAO.GetReservationByCampground(ParksReservationCLI.campgroundID);
+            IList<Reservations> reservations = reservationSqlDAO.GetReservationByCampground(testCampgroundId);
             //Assert
             Assert.IsTrue(reservations.Count > 0);
         }
