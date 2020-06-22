@@ -80,6 +80,7 @@ namespace Capstone
 
         private void PrintHeader()
         {
+            Console.Clear();
             Console.WriteLine(@" _   _       _   _                   _   _____           _   ");
             Console.WriteLine(@"| \ | |     | | (_)                 | | |  __ \         | |  ");
             Console.WriteLine(@"|  \| | __ _| |_ _  ___  _ __   __ _| | | |__) |_ _ _ __| | _____");
@@ -140,20 +141,22 @@ namespace Capstone
                     Console.Clear();
                     throw new Exception();
                 }
-                else if (campGroundDAO.IsValidCampground(parkId, campgroundID) == false)
+                while (campGroundDAO.IsValidCampground(parkId, campgroundID) == false)
                 {
-                    Console.WriteLine("Please enter a campground ID from the camgrounds displayed.");
+                    Console.WriteLine("Please enter a campground ID from the campgrounds displayed.");
                     campgroundID = CLIHelper.GetInteger("Please enter the desired campground(ID) or 0 to Cancel:");
-
                 }
+
 
                 startDate = CLIHelper.GetDateTime("Enter desired start date (MM-DD-YYYY):");
                 endDate = CLIHelper.GetDateTime("Enter desired end date (MM-DD-YYY):");
 
-                if (startDate > endDate || endDate < startDate)
+                while (startDate > endDate || endDate < startDate) 
                 {
                     Console.WriteLine("Date input invalid, please try again");
-                    throw new Exception();
+                    startDate = CLIHelper.GetDateTime("Enter desired start date (MM-DD-YYYY):");
+                    endDate = CLIHelper.GetDateTime("Enter desired end date (MM-DD-YYY):");
+
                 }
                 ////for testing
                 //IList<Reservations> reservationsByCampground = reservationDAO.GetReservationByCampground(campgroundID);
@@ -177,6 +180,8 @@ namespace Capstone
                     }
                     else
                     {
+                        Console.Clear();
+                        menuSpacer();
                         Console.WriteLine("Results matching your search criteria:");
                         foreach (Site site in availablesites)
                         {
@@ -248,7 +253,7 @@ namespace Capstone
             try
             {
                 parkID = CLIHelper.GetInteger("Input the ID of the Park to show Campgrounds:");
-                if (parkID > 0 && parkID < parkDAO.GetParks().Count)
+                if (parkID > 0 && parkID <= parkDAO.GetParks().Count)
                 {
 
                     IList<CampGround> campGrounds = campGroundDAO.GetCampGroundByParkId(parkID);
@@ -270,9 +275,10 @@ namespace Capstone
 
                     throw new Exception();
                 }
-                
-            } catch (Exception e)
-            
+
+            }
+            catch (Exception e)
+
             {
                 Console.WriteLine("Please enter an ID from the parks displayed.");
                 DisplayCampgroundsbyParkId();
