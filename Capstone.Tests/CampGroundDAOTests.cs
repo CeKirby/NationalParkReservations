@@ -19,7 +19,7 @@ namespace Capstone.Tests
             //Act
             int month = campgroundDAO.CampGroundMonthToReserve(testStartDate);
             //Assert
-            Assert.AreEqual(5, month);
+            Assert.AreEqual(6, month);
 
         }
 
@@ -60,7 +60,7 @@ namespace Capstone.Tests
             Assert.IsTrue(campgrounds.Count > 0);
         }
         [TestMethod]
-        public void IsValidCampgroundTest()
+        public void IsValidCampgroundHappyTest()
         {
             //Arrange
             CampGroundSqlDAO campgroundDAO = new CampGroundSqlDAO(connectionString);
@@ -69,6 +69,15 @@ namespace Capstone.Tests
             //Assert
             Assert.AreEqual(true, isValid);
         }
-
+        [TestMethod]
+        public void IsValidCampgroundInvalidInputTest()
+        {
+            //Arrange
+            CampGroundSqlDAO campgroundDAO = new CampGroundSqlDAO(connectionString);
+            //Act
+            bool isValid = campgroundDAO.IsValidCampground(testParkId, 30);
+            //Assert
+            Assert.AreEqual(false, isValid);
+        }
     }
 }

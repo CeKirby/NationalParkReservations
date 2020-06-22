@@ -20,6 +20,17 @@ namespace Capstone.Tests
             //Assert
             Assert.IsTrue(sites.Count > 0);
         }
+        [TestMethod]
+        public void AvailableSitesTest()
+        {
+            //Arrange
+            SiteSqlDAO siteSqlDAO = new SiteSqlDAO(connectionString);
+            //Act
+            IList<Site> sites = siteSqlDAO.AvailableSites(testCampgroundId, testStartDate, testEndDate);
+            //Assert
+            Assert.IsTrue(sites.Count > 0);
+        }
+
 
 
 

@@ -38,14 +38,13 @@ namespace Capstone.Tests
         {
 
             //Arrange
-            decimal costAsAnticpiated = 0;
             ParksReservationCLI.campgroundID = 1;
-            ParksReservationCLI.startDate = teststartDate;
+            ParksReservationCLI.startDate = testStartDate;
             ParksReservationCLI.endDate = testEndDate;
 
             ReservationSqlDAO reservationSqlDAO = new ReservationSqlDAO(connectionString);
             //Act
-            costAsAnticpiated = reservationSqlDAO.TotalStayCost(1);
+            decimal costAsAnticpiated = reservationSqlDAO.TotalStayCost(1);
             //Assert
             Assert.AreEqual(245.00M, costAsAnticpiated);
 
