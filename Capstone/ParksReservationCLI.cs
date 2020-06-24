@@ -151,7 +151,7 @@ namespace Capstone
                 startDate = CLIHelper.GetDateTime("Enter desired start date (MM-DD-YYYY):");
                 endDate = CLIHelper.GetDateTime("Enter desired end date (MM-DD-YYY):");
 
-                while (startDate > endDate || endDate < startDate) 
+                while (startDate > endDate || startDate < DateTime.Now) 
                 {
                     Console.WriteLine("Date input invalid, please try again");
                     startDate = CLIHelper.GetDateTime("Enter desired start date (MM-DD-YYYY):");
